@@ -14,7 +14,8 @@ HTML, CSS e JS puros. Sem framework e sem etapa de build.
 ## Fontes da verdade (em ordem)
 
 1. `docs/copy.md`: os textos. **São lei: exatamente esses, nada a mais e nada a menos.**
-2. `docs/marca.md`: cores, forma, tipografia e o desenho de cada dobra.
+2. `docs/design-aprovado.md` e `_referencia/prototipo/`: o visual aprovado em 13/11. Valem por cima de `docs/marca.md`.
+2b. `docs/marca.md`: cores, forma, tipografia e o desenho de cada dobra.
 3. `docs/rdstation.md`: como o formulário envia os dados.
 4. `../Zero7-Internacional/`: o site oficial (rodapé, botão, tokens). **Só leitura. Nunca altere nada fora desta pasta.**
 
@@ -33,7 +34,7 @@ HTML, CSS e JS puros. Sem framework e sem etapa de build.
 1. **Copy.** Palavra por palavra. Os únicos textos fora da copy são os da tabela "Textos que a copy não traz" em `docs/copy.md`.
 2. **Formulário.** Só dois campos: Nome e E-mail. Não acrescente campo, caixa de aceite ou texto de apoio sem pedido explícito.
 3. **Lead não se perde.** O redirecionamento para o obrigado só acontece depois do sucesso do envio. Regras completas em `docs/rdstation.md`.
-4. **Identidade.** Preto, verde da Zero7 Trading e corte diagonal. Nada do laranja da Black nacional.
+4. **Identidade.** Preto, verde da Zero7 Trading e corte diagonal. Nada do laranja da Black nacional e nada de dourado (recusado; ver `docs/design-aprovado.md`).
 5. **Sem credencial no repositório.** Só a chave pública da RD pode ir para o front.
 6. **Dados pessoais.** Nome e e-mail nunca vão para a URL, para o dataLayer ou para o console em modo real.
 7. **Terceiros.** Nenhum script externo além dos listados em `docs/fases.md`.

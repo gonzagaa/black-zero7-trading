@@ -1,53 +1,74 @@
-/* Dobra 2: "Traders Zero7 recebendo em Dólar". Ver docs/marca.md, "As dobras > 2. Pagamentos".
+/* Dobra 2: "Traders Zero7 recebendo em Dólar". Valores do protótipo aprovado (_referencia/prototipo/lp.html, .sec2).
    As molduras são montadas por js/comprovantes.js. */
 
 .comprovantes {
   position: relative;
-  padding-block: 8rem;
+  isolation: isolate;
   overflow: hidden;
+  background: var(--bg-black);
+  padding: 7.2rem 0 9.6rem;
 }
 
+/* linha fina do topo (a mesma do rodapé do site) */
 .comprovantes::before {
   content: '';
   position: absolute;
-  left: 50%;
-  top: 40%;
-  width: min(110rem, 140%);
-  aspect-ratio: 2 / 1;
-  transform: translate(-50%, -50%);
-  z-index: -1;
-  background: radial-gradient(closest-side, rgba(16, 163, 106, .14), rgba(4, 4, 4, 0));
-  pointer-events: none;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  z-index: 3;
+  background: var(--linha);
+}
+
+/* campo de pontos e luz verde subindo da base */
+.comprovantes__fundo {
+  z-index: 0;
+  background:
+    radial-gradient(55% 40% at 50% 104%, rgba(16, 163, 106, .30), transparent 72%),
+    radial-gradient(rgba(255, 255, 255, .26) 1px, transparent 1.5px);
+  background-size: auto, 13px 13px;
+  -webkit-mask-image: radial-gradient(70% 60% at 50% 60%, #000 0%, rgba(0, 0, 0, .45) 50%, transparent 85%);
+          mask-image: radial-gradient(70% 60% at 50% 60%, #000 0%, rgba(0, 0, 0, .45) 50%, transparent 85%);
 }
 
 .comprovantes__titulo {
+  margin: 0 auto 4.4rem;
+  max-width: 98rem;
+  text-align: center;
   font-family: var(--ncs);
   font-weight: 900;
   text-transform: uppercase;
-  text-align: center;
-  font-size: clamp(2.4rem, 6.4vw, 5.2rem);
-  line-height: 1.1;
-  color: #fff;
+  font-size: clamp(2.6rem, 7.4vw, 6.6rem);
+  line-height: 1;
+  letter-spacing: -.02em;
   text-wrap: balance;
+  background: var(--prata-h2);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
 .neon {
+  -webkit-text-fill-color: var(--neon);
   color: var(--neon);
-  text-shadow: 0 0 2.4rem rgba(111, 240, 184, .35);
+  filter: drop-shadow(0 0 22px rgba(111, 240, 184, .4));
 }
 
 /* ---------- Esteira ---------- */
 
 .esteira {
-  --alt: 26rem;           /* altura fixa das molduras */
+  /* escala das molduras: 1 no desktop (292 × 372 e 340 × 300, como no protótipo) */
+  --esc: .62;
   --gap: 1.6rem;
-  --duracao: 60s;
 
+  position: relative;
+  z-index: 3;
   display: grid;
   gap: var(--gap);
-  margin-top: 4.8rem;
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
-          mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
 }
 
 .esteira__fileira {
@@ -66,47 +87,62 @@
   gap: var(--gap);
 }
 
+/* moldura: borda de 2 px em degradê branco → verde, corte diagonal */
 .moldura {
   flex: none;
-  height: var(--alt);
-  padding: .6rem;
-  background: rgba(255, 255, 255, .03);
-  border: 1px solid rgba(52, 211, 153, .25);
-  border-radius: var(--corte);
-  overflow: hidden;
+  height: calc(37.2rem * var(--esc));
+  padding: 2px;
+  border-radius: 2.6rem 0 2.6rem 0;
+  background: linear-gradient(160deg, rgba(255, 255, 255, .28), rgba(255, 255, 255, .06) 40%, rgba(52, 211, 153, .35) 100%);
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .9);
 }
 
-.moldura img {
+.esteira__fileira--dir .moldura {
+  height: calc(30rem * var(--esc));
+}
+
+.moldura__dentro {
+  height: 100%;
+  overflow: hidden;
+  border-radius: 2.4rem 0 2.4rem 0;
+  background: linear-gradient(170deg, #101211, #060707);
+}
+
+.moldura__dentro img {
   height: 100%;
   width: auto;
   max-width: none;
-  border-radius: calc(var(--r) - .6rem) 0 calc(var(--r) - .6rem) 0;
 }
 
-/* Sem as imagens reais: moldura vazia do mesmo tamanho (proporção de retrato, 3:4) */
+/* sem as imagens reais: moldura vazia do tamanho do protótipo (retrato em cima, paisagem embaixo) */
 .moldura--vazia {
-  aspect-ratio: 3 / 4;
-  background:
-    linear-gradient(160deg, rgba(52, 211, 153, .06), rgba(255, 255, 255, .015) 60%),
-    rgba(255, 255, 255, .02);
+  width: calc(29.2rem * var(--esc));
+}
+
+.esteira__fileira--dir .moldura--vazia {
+  width: calc(34rem * var(--esc));
 }
 
 @media (min-width: 768px) {
-  .esteira { --alt: 32rem; --gap: 2rem; }
+  .comprovantes { padding: 9.6rem 0 12rem; }
+  .comprovantes__titulo { margin-bottom: 6rem; }
+  .esteira { --esc: .82; --gap: 2.2rem; }
 }
 
-@media (min-width: 1440px) {
-  .esteira { --alt: 36rem; }
+@media (min-width: 1080px) {
+  .comprovantes { padding: 11rem 0 15rem; }
+  .comprovantes__titulo { margin-bottom: 7rem; }
+  .esteira { --esc: 1; --gap: 2.6rem; }
 }
 
 /* Movimento contínuo e lento, uma fileira para cada lado; pausa no mouse ou no toque */
 @media (prefers-reduced-motion: no-preference) {
   .esteira__trilho {
-    animation: esteira-esq var(--duracao) linear infinite;
+    animation: esteira-esq 46s linear infinite;
   }
 
   .esteira__fileira--dir .esteira__trilho {
-    animation-name: esteira-dir;
+    animation: esteira-dir 54s linear infinite;
   }
 
   .esteira:hover .esteira__trilho,
@@ -136,8 +172,8 @@
   .esteira__fileira {
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    scroll-padding-inline: 2.4rem;
-    padding-inline: 2.4rem;
+    scroll-padding-inline: 2rem;
+    padding-inline: 2rem;
     padding-bottom: 1.2rem;
     overscroll-behavior-x: contain;
   }

@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Black Zero7 Trading</title>
+</head>
+<body>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Zalando+Sans+Expanded:wght@500;700;900&display=swap">
+<style>
+body{margin:0;background:#040404}
+a{color:#d2d2d2}a:hover{color:#ffffff}
+*{box-sizing:border-box}
+.pg{--ouro1:#f8e3ad;--ouro2:#f1c36a;--ouro3:#b47a2a;--deep:#0b5d3b;--mid:#10a36a;--sky:#34d399;--neon:#6FF0B8;--disp:"Zalando Sans Expanded","Arial Black",sans-serif;--txt:"Inter",system-ui,sans-serif;
+  font-family:var(--txt);color:#f2fffb;background:#040404;overflow:hidden;-webkit-font-smoothing:antialiased}
+.wrap{width:min(1240px,100%);margin-inline:auto;padding-inline:32px;position:relative;z-index:3}
+/* ---------- fundo: preto com textura ---------- */
+.cena{position:relative;isolation:isolate;overflow:hidden;background:#040404}
+.l07{position:absolute;inset:0;z-index:0;background:url("../../assets/fundo/bg-black.avif") center/cover no-repeat;filter:brightness(1.45) contrast(1.1)}
+.lluz{position:absolute;inset:0;z-index:0;background:
+  radial-gradient(42% 46% at 80% 42%,rgba(16,163,106,.26),transparent 72%),
+  radial-gradient(60% 40% at 50% 0%,rgba(11,93,59,.30),transparent 75%)}
+.lpontos{position:absolute;inset:0;z-index:1;
+  background-image:radial-gradient(rgba(255,255,255,.34) 1px,transparent 1.5px);background-size:13px 13px;
+  -webkit-mask-image:radial-gradient(58% 70% at 64% 46%,#000 0%,rgba(0,0,0,.5) 38%,transparent 72%);mask-image:radial-gradient(58% 70% at 64% 46%,#000 0%,rgba(0,0,0,.5) 38%,transparent 72%)}
+.larcos{position:absolute;left:50%;top:0;bottom:0;z-index:1;pointer-events:none;-webkit-mask-image:linear-gradient(#000 55%,transparent 96%);mask-image:linear-gradient(#000 55%,transparent 96%)}
+.larcos i{position:absolute;left:calc(var(--d) / -2);width:var(--d);height:var(--d);border-radius:50%;border:1px solid rgba(255,255,255,.2)}
+.larcos .a1{--d:1640px;top:70px}
+.larcos .a2{--d:1080px;top:300px;border-color:rgba(255,255,255,.09)}
+.lvinheta{position:absolute;inset:0;z-index:1;background:radial-gradient(120% 90% at 50% 40%,transparent 55%,rgba(0,0,0,.75) 100%),linear-gradient(transparent 70%,#040404 100%)}
+.lgrao{position:absolute;inset:0;z-index:2;opacity:.34;mix-blend-mode:overlay;pointer-events:none;background:url("../../assets/fundo/grao.png") 0 0/220px 220px}
+/* ---------- hero ---------- */
+.topo{display:flex;align-items:center;justify-content:space-between;padding-block:34px}
+.topo img{width:150px;height:auto;display:block}
+.grade{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:56px;align-items:center;padding-block:56px 150px}
+.h1{margin:0;font-family:var(--disp);font-weight:900;text-transform:uppercase;line-height:.92;letter-spacing:-.025em;font-size:clamp(46px,7.3vw,104px);
+  background:radial-gradient(90% 120% at 30% 20%,#ffffff 0%,#f2f2f2 40%,#9a9a9a 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 12px 40px rgba(0,0,0,.6))}
+.h1 span{display:block}
+.lead{margin:30px 0 0;max-width:520px;font-size:20px;line-height:1.55;color:#d7ded9}
+.data{margin:34px 0 0;display:inline-flex;align-items:center;gap:14px;padding:14px 22px 14px 18px;border-radius:16px 0 16px 0;
+  font-family:var(--disp);font-weight:700;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:#fff;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.16);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.ponto{position:relative;width:9px;height:9px;border-radius:50%;background:var(--neon);flex:none;box-shadow:0 0 12px var(--neon)}
+.ponto::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:1px solid var(--neon);animation:pulso 2.4s ease-out infinite}
+@keyframes pulso{0%{transform:scale(.5);opacity:.9}70%,100%{transform:scale(1.8);opacity:0}}
+/* cartão do formulário */
+.cartao{position:relative;padding:40px 38px 38px;border-radius:30px 0 30px 0;
+  background:linear-gradient(160deg,rgba(255,255,255,.07) 0%,rgba(255,255,255,.02) 45%,rgba(0,0,0,.35) 100%);
+  border:1px solid rgba(255,255,255,.12);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+  box-shadow:0 40px 90px -30px rgba(0,0,0,.9),0 0 80px -20px rgba(16,163,106,.30),inset 0 1px 0 rgba(255,255,255,.10)}
+.canto{display:none}
+.chamada{margin:0 0 26px;font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.25;color:#fff}
+.campo{display:flex;flex-direction:column;gap:9px;margin-bottom:20px}
+.campo label{font-size:14px;font-weight:600;color:#cfd8d3;letter-spacing:.02em}
+.campo input{height:58px;width:100%;padding:0 18px;font:500 17px var(--txt);color:#fff;border-radius:16px 0 16px 0;
+  background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.14);box-shadow:inset 0 2px 10px rgba(0,0,0,.6);outline:none;transition:border-color .2s,box-shadow .2s}
+.campo input:focus-visible{border-color:var(--sky);box-shadow:0 0 0 4px rgba(52,211,153,.18),inset 0 2px 10px rgba(0,0,0,.6)}
+.btn{position:relative;display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;height:72px;margin-top:8px;padding:0 10px 0 28px;border:0;cursor:pointer;overflow:hidden;
+  border-radius:24px 0 24px 0;font-family:var(--disp);font-weight:700;font-size:15.5px;letter-spacing:.07em;text-transform:uppercase;color:#fff;
+  background:linear-gradient(90deg,#063b26 0%,var(--deep) 30%,var(--mid) 68%,var(--sky) 100%);
+  box-shadow:0 0 44px rgba(52,211,153,.30),inset 0 1px 0 rgba(255,255,255,.25)}
+.btn::before{content:"";position:absolute;top:0;bottom:0;width:38%;left:-45%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.34),transparent);transform:skewX(-18deg);animation:passa 3.8s ease-in-out infinite}
+@keyframes passa{0%{left:-45%}55%,100%{left:120%}}
+.btn:focus-visible{outline:3px solid #fff;outline-offset:4px}
+.btn .cap{position:relative;display:grid;place-items:center;width:54px;height:52px;flex:none;border-radius:999px 0 999px 999px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.35)}
+.btn .cap svg{width:22px;height:22px}
+/* ---------- comprovantes ---------- */
+.sec2{position:relative;background:#040404;padding:110px 0 150px;isolation:isolate;overflow:hidden}
+.sec2::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;z-index:3;background:linear-gradient(to right,transparent,#ffffff5b,#cecece,#ffffff5b,transparent)}
+.sec2 .fundo{position:absolute;inset:0;z-index:0;background:
+  radial-gradient(55% 40% at 50% 104%,rgba(16,163,106,.30),transparent 72%),
+  radial-gradient(rgba(255,255,255,.26) 1px,transparent 1.5px);
+  background-size:auto,13px 13px;
+  -webkit-mask-image:radial-gradient(70% 60% at 50% 60%,#000 0%,rgba(0,0,0,.45) 50%,transparent 85%);mask-image:radial-gradient(70% 60% at 50% 60%,#000 0%,rgba(0,0,0,.45) 50%,transparent 85%)}
+.h2{margin:0 auto 70px;max-width:980px;text-align:center;font-family:var(--disp);font-weight:900;text-transform:uppercase;font-size:clamp(34px,4.8vw,66px);line-height:1;letter-spacing:-.02em;background:radial-gradient(90% 140% at 40% 10%,#ffffff 0%,#f2f2f2 45%,#a6a6a6 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.h2 .neon{-webkit-text-fill-color:var(--neon);filter:drop-shadow(0 0 22px rgba(111,240,184,.4))}
+.esteira{position:relative;z-index:3;display:flex;flex-direction:column;gap:26px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.fila{display:flex;gap:26px;width:max-content;animation:anda 46s linear infinite}
+.fila.r{animation-direction:reverse;animation-duration:54s}
+.esteira:hover .fila{animation-play-state:paused}
+@keyframes anda{to{transform:translateX(calc(-50% - 13px))}}
+.comp{position:relative;flex:none;width:292px;height:372px;padding:2px;border-radius:26px 0 26px 0;background:linear-gradient(160deg,rgba(255,255,255,.28),rgba(255,255,255,.06) 40%,rgba(52,211,153,.35) 100%);box-shadow:0 30px 60px -30px rgba(0,0,0,.9)}
+.comp .dentro{height:100%;border-radius:24px 0 24px 0;background:linear-gradient(170deg,#101211,#060707);border:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#93a39b;font-size:13px;text-align:center;padding:20px}
+.comp .dentro b{font-family:var(--disp);font-size:13px;letter-spacing:.14em;color:#cfe;}
+.fila.r .comp{width:340px;height:300px}
+/* ---------- rodapé ---------- */
+.rod{position:relative;background:#040404;padding:72px 0 64px}
+.rod::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(to right,transparent,#ffffff5b,#cecece,#ffffff5b,transparent)}
+.rod .cols{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:56px;text-align:left}
+.rod img{width:150px;height:auto;margin-bottom:18px;display:block}
+.rod h3{margin:0 0 14px;font-family:var(--disp);font-weight:900;font-size:16px;text-transform:uppercase;color:#fff}
+.rod p{margin:0 0 9px;font-size:16px;font-weight:300;color:#d2d2d2;line-height:1.5}
+.rod a{text-decoration:none}
+.rod .soc{display:flex;gap:6px;justify-content:flex-end}
+.rod .soc a{display:grid;place-items:center;width:46px;height:46px;border-radius:50%}
+.rod .soc svg{width:26px;height:26px;fill:#d2d2d2}
+.rod .dir{text-align:right}
+.aut{background:#0d0d0d;padding:26px 0 34px}
+.aut .lin{display:flex;flex-wrap:wrap;gap:12px 40px;justify-content:space-between;font-size:13px;color:#fff}
+.aut .lin p{margin:0}
+.aut .disc{margin:26px 0 0;font-size:11.5px;line-height:1.55;color:#9aa19d;text-align:center}
+/* ---------- obrigado ---------- */
+.obg{display:flex;flex-direction:column;align-items:center;text-align:center;padding-block:48px 150px}
+.obg h1{margin:0;font-family:var(--disp);font-weight:900;text-transform:uppercase;letter-spacing:-.03em;line-height:.95;font-size:clamp(52px,11.5vw,168px);
+  background:radial-gradient(90% 120% at 35% 15%,#ffffff 0%,#f2f2f2 40%,#9a9a9a 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 12px 40px rgba(0,0,0,.6))}
+.obg .selo{display:inline-flex;align-items:center;gap:12px;margin:26px 0 0;font-family:var(--disp);font-weight:700;font-size:24px;color:#fff}
+.obg .selo svg{width:30px;height:30px;padding:6px;border-radius:50%;background:linear-gradient(135deg,var(--mid),var(--sky))}
+.obg .intro{margin:44px 0 26px;max-width:640px;font-size:20px;line-height:1.55;color:#d7ded9}
+.canais{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px;width:min(980px,100%);text-align:left}
+.canal{position:relative;display:flex;gap:20px;align-items:center;padding:30px;border-radius:26px 0 26px 0;background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02) 45%,rgba(0,0,0,.35));border:1px solid rgba(255,255,255,.12);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:0 30px 70px -30px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.09)}
+.canal .ic{display:grid;place-items:center;flex:none;width:56px;height:56px;border-radius:16px 0 16px 0;background:linear-gradient(135deg,var(--deep),var(--mid));box-shadow:0 0 30px rgba(52,211,153,.35)}
+.canal .ic svg{width:26px;height:26px}
+.canal p{margin:0;font-size:18px;line-height:1.55;color:#eef6f1}
+.canal a{color:var(--neon);font-weight:600}
+.canal .aviso{margin-top:14px;padding:14px 16px;border-radius:12px 0 12px 0;font-size:15.5px;color:#e9efeb;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.16)}
+.obg .data{margin-top:54px;font-size:16px;padding:18px 26px}
+@media (max-width:1000px){
+  .grade{grid-template-columns:minmax(0,1fr);gap:40px;padding-block:24px 260px}
+  .canais{grid-template-columns:minmax(0,1fr)}
+  .rod .cols{grid-template-columns:minmax(0,1fr);gap:32px}.rod .dir{text-align:left}.rod .soc{justify-content:flex-start}
+  .wrap{padding-inline:20px}.cartao{padding:30px 22px}.lead{font-size:18px}.data{font-size:12px}
+}
+@media (prefers-reduced-motion:reduce){.fila,.btn::before,.ponto::after{animation:none}}
+</style>
+<div class="pg">
+<section class="cena">
+<div class="l07" aria-hidden="true"></div>
+<div class="lluz" aria-hidden="true"></div>
+<div class="lpontos" aria-hidden="true"></div>
+<div class="larcos" aria-hidden="true"><i class="a1"></i><i class="a2"></i></div>
+<div class="lvinheta" aria-hidden="true"></div>
+<div class="lgrao" aria-hidden="true"></div>
+<header class="wrap topo"><img src="../../assets/marca/logo-zero7.avif" alt="Zero7" width="800" height="250"></header>
+<div class="wrap grade">
+<div>
+<h1 class="h1"><span>Black</span><span>Zero7</span><span>Trading</span></h1>
+<p class="lead">Uma oferta imperdível para você testar e operar Day Trade no mercado americano de futuros.</p>
+<p class="data"><span class="ponto" aria-hidden="true"></span>Oferta revelada ao vivo - 27/11 às 12h</p>
+</div>
+<form class="cartao" aria-labelledby="chamada">
+<p class="chamada" id="chamada">Cadastre-se para receber a oferta.</p>
+<div class="campo"><label for="nome">Nome:</label><input id="nome" name="nome" type="text" autocomplete="name"></div>
+<div class="campo"><label for="email">E-mail:</label><input id="email" name="email" type="email" autocomplete="email"></div>
+<button type="button" class="btn"><span>QUERO RECEBER A OFERTA</span><span class="cap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></button>
+</form>
+</div>
+</section>
+<section class="sec2" aria-labelledby="t2">
+<div class="fundo" aria-hidden="true"></div><div class="lgrao" aria-hidden="true"></div>
+<div class="wrap"><h2 class="h2" id="t2">Traders Zero7 recebendo em <span class="neon">Dólar</span></h2></div>
+<div class="esteira"><div class="fila "><div class="comp"><div class="dentro"><b>COMPROVANTE 01</b><span>a imagem real entra aqui</span></div></div><div class="comp"><div class="dentro"><b>COMPROVANTE 02</b><span>a imagem real entra aqui</span></div></div><div class="comp"><div class="dentro"><b>COMPROVANTE 03</b><span>a imagem real entra aqui</span></div></div><div class="comp"><div class="dentro"><b>COMPROVANTE 04</b><span>a imagem real entra aqui</span></div></div><div class="comp"><div class="dentro"><b>COMPROVANTE 05</b><span>a imagem real entra aqui</span></div></div><div class="comp"><div class="dentro"><b>COMPROVANTE 06</b><span>a imagem real entra aqui</span></div></div><div class="comp"><div class="dentro"><b>COMPROVANTE 07</b><span>a imagem real entra aqui</span></div></div><div class="comp"><div class="dentro"><b>COMPROVANTE 08</b><span>a imagem real entra aqui</span></div></div><div class="comp"><div class="dentro"><b>COMPROVANTE 01</b><span>a imagem real entra aqui</span></div></div><div class="comp"><div class="dentro"><b>COMPROVANTE 02</b><span>a imagem real entra aqui</span></div></div><div class="comp"><div class="dentro"><b>COMPROVANTE 03</b><span>a imagem real entra aqui</span></div></div><div class="comp"><div class="dentro"><b>COMPROVANTE 04</b><span>a imagem real entra aqui</span></div></div><div class="comp"><div class="dentro"><b>COMPROVANTE 05</b><span>a imagem real entra aqui</span></div></div><div class="comp"><div class="dentro"><b>COMPROVANTE 06</b><span>a imagem real entra aqui</span></div></div><div class="comp"><div class="dentro"><b>COMPROVANTE 07</b><span>a imagem real entra aqui</span></div></div><div class="comp"><div class="dentro"><b>COMPROVANTE 08</b><span>a imagem real entra aqui</span></div></div></div><div class="fila r"><div class="comp"><div class="dentro"><b>COMPROVANTE 09</b><span>a imagem real entra aqui</span></div></div><div class="comp"><div class="dentro"><b>COMPROVANTE 10</b><span>a imagem real entra aqui</span></div></div><div class="comp"><div class="dentro"><b>COMPROVANTE 11</b><span>a imagem real entra aqui</span></div></div><div class="comp"><div class="dentro"><b>COMPROVANTE 12</b><span>a imagem real entra aqui</span></div></div><div class="comp"><div class="dentro"><b>COMPROVANTE 13</b><span>a imagem real entra aqui</span></div></div><div class="comp"><div class="dentro"><b>COMPROVANTE 14</b><span>a imagem real entra aqui</span></div></div><div class="comp"><div class="dentro"><b>COMPROVANTE 15</b><span>a imagem real entra aqui</span></div></div><div class="comp"><div class="dentro"><b>COMPROVANTE 16</b><span>a imagem real entra aqui</span></div></div><div class="comp"><div class="dentro"><b>COMPROVANTE 09</b><span>a imagem real entra aqui</span></div></div><div class="comp"><div class="dentro"><b>COMPROVANTE 10</b><span>a imagem real entra aqui</span></div></div><div class="comp"><div class="dentro"><b>COMPROVANTE 11</b><span>a imagem real entra aqui</span></div></div><div class="comp"><div class="dentro"><b>COMPROVANTE 12</b><span>a imagem real entra aqui</span></div></div><div class="comp"><div class="dentro"><b>COMPROVANTE 13</b><span>a imagem real entra aqui</span></div></div><div class="comp"><div class="dentro"><b>COMPROVANTE 14</b><span>a imagem real entra aqui</span></div></div><div class="comp"><div class="dentro"><b>COMPROVANTE 15</b><span>a imagem real entra aqui</span></div></div><div class="comp"><div class="dentro"><b>COMPROVANTE 16</b><span>a imagem real entra aqui</span></div></div></div></div>
+</section>
+<footer class="rod">
+<div class="wrap"><div class="cols">
+<div><img src="../../assets/marca/logo-zero7.avif" alt="Zero7" width="800" height="250"><p>Av. Dep. Jamel Cecílio, nº 2929 - Jardim Goiás, Goiânia - GO, 74810-240</p><p>Segunda a sexta-feira, 8h às 18h</p></div>
+<div><h3>Navegação</h3><p><a href="https://zero7trading.com/home/">Home</a></p><p><a href="https://zero7trading.com/home/#plan">Planos</a></p><p><a href="https://app.zero7trading.com">Área do Trader</a></p></div>
+<div><h3>Suporte</h3><p><a href="https://app.zero7trading.com">Área do Trader</a></p><p>support@zero7trading.com</p></div>
+<div class="dir"><h3>Social</h3><div class="soc"><a href="https://www.instagram.com/zero7tesouraria/" aria-label="Instagram"><svg viewBox="0 0 512 512" aria-hidden="true"><path d="M349.33 69.33a93.62 93.62 0 0193.34 93.34v186.66a93.62 93.62 0 01-93.34 93.34H162.67a93.62 93.62 0 01-93.34-93.34V162.67a93.62 93.62 0 0193.34-93.34h186.66m0-37.33H162.67C90.8 32 32 90.8 32 162.67v186.66C32 421.2 90.8 480 162.67 480h186.66C421.2 480 480 421.2 480 349.33V162.67C480 90.8 421.2 32 349.33 32z"></path><path d="M377.33 162.67a28 28 0 1128-28 27.94 27.94 0 01-28 28zM256 181.33A74.67 74.67 0 11181.33 256 74.75 74.75 0 01256 181.33m0-37.33a112 112 0 10112 112 112 112 0 00-112-112z"></path></svg></a><a href="https://www.tiktok.com/@zero7_mesa" aria-label="TikTok"><svg viewBox="0 0 512 512" aria-hidden="true"><path d="M412.19 118.66a109.27 109.27 0 01-9.45-5.5 132.87 132.87 0 01-24.27-20.62c-18.1-20.71-24.86-41.72-27.35-56.43h.1C349.14 23.9 350 16 350.13 16h-82.44v318.78c0 4.28 0 8.51-.18 12.69 0 .52-.05 1-.08 1.56 0 .23 0 .47-.05.71v.18a70 70 0 01-35.22 55.56 68.8 68.8 0 01-34.11 9c-38.41 0-69.54-31.32-69.54-70s31.13-70 69.54-70a68.9 68.9 0 0121.41 3.39l.1-83.94a153.14 153.14 0 00-118 34.52 161.79 161.79 0 00-35.3 43.53c-3.48 6-16.61 30.11-18.2 69.24-1 22.21 5.67 45.22 8.85 54.73v.2c2 5.6 9.75 24.71 22.38 40.82A167.53 167.53 0 00115 470.66v-.2l.2.2c39.91 27.12 84.16 25.34 84.16 25.34 7.66-.31 33.32 0 62.46-13.81 32.32-15.31 50.72-38.12 50.72-38.12a158.46 158.46 0 0027.64-45.93c7.46-19.61 9.95-43.13 9.95-52.53V176.49c1 .6 14.32 9.41 14.32 9.41s19.19 12.3 49.13 20.31c21.48 5.7 50.42 6.9 50.42 6.9v-81.84c-10.14 1.1-30.73-2.1-51.81-12.61z"></path></svg></a><a href="https://www.facebook.com/zero7tesouraria" aria-label="Facebook"><svg viewBox="0 0 512 512" aria-hidden="true"><path d="M480 257.35c0-123.7-100.3-224-224-224s-224 100.3-224 224c0 111.8 81.9 204.47 189 221.29V322.12h-56.89v-64.77H221V208c0-56.13 33.45-87.16 84.61-87.16 24.51 0 50.15 4.38 50.15 4.38v55.13H327.5c-27.81 0-36.51 17.26-36.51 35v42h62.12l-9.92 64.77H291v156.54c107.1-16.81 189-109.48 189-221.31z" fill-rule="evenodd"></path></svg></a></div></div>
+</div></div>
+</footer>
+<section class="aut"><div class="wrap">
+<div class="lin"><p>© 2026 | Todos os direitos reservados.</p><p><a href="https://zero7.com.br/politica-de-privacidade/" style="color: #fff">Política de Privacidade</a></p><p>Cookie</p><p>Políticas de Uso</p><p>Zero7 Tesouraria LTDA | CNPJ: 49.452.697/0001-20</p></div>
+<p class="disc">Todas as informações aqui apresentadas são destinadas exclusivamente a fins educacionais sobre trading nos mercados financeiros. Elas não constituem recomendação de investimento, análise de oportunidade ou orientação para negócios relacionados à negociação de instrumentos financeiros. A Zero7 oferece apenas serviços de trading simulado e ferramentas educacionais para traders. As informações contidas neste site não se destinam a residentes de países ou jurisdições onde tal distribuição ou uso contrarie as leis ou regulamentos locais. A Zero7 não atua como corretora e não aceita depósitos. A solução técnica para plataformas e a fonte de dados são fornecidas por terceiros.</p>
+</div></section>
+</div>
+</body>
+</html>

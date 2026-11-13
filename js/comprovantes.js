@@ -1,9 +1,10 @@
 // Dobra "Traders Zero7 recebendo em Dólar": monta as molduras dos comprovantes.
 // Para trocar as imagens, edite só a lista abaixo (arquivos em assets/comprovantes/, ver o LEIA-ME de lá).
 
-const VERSAO = '202611131547'; // cache busting das imagens (atualizado por scripts/versao.mjs)
+const VERSAO = '202611131609'; // cache busting das imagens (atualizado por scripts/versao.mjs)
 
 /**
+ * Fileira de cima em retrato (altura 372 px no desktop), de baixo em paisagem (300 px); a largura acompanha a imagem.
  * Um item por imagem, na ordem da tela. largura/altura = tamanho real do arquivo, em px (evita salto de layout).
  * Exemplo: { arquivo: '01.webp', largura: 720, altura: 1280 }
  * Enquanto a lista estiver vazia, a dobra mostra molduras vazias (pendência 3 do CLAUDE.md).
@@ -24,8 +25,12 @@ if (raiz) {
 }
 
 function moldura(item) {
+  // .moldura desenha a borda em degradê (padding de 2 px); .moldura__dentro é o miolo escuro com a imagem
   const div = document.createElement('div');
   div.className = 'moldura';
+  const dentro = document.createElement('div');
+  dentro.className = 'moldura__dentro';
+  div.appendChild(dentro);
   if (!item) {
     div.classList.add('moldura--vazia');
     return div;
@@ -37,7 +42,7 @@ function moldura(item) {
   img.height = item.altura;
   img.loading = 'lazy';
   img.decoding = 'async';
-  div.appendChild(img);
+  dentro.appendChild(img);
   return div;
 }
 

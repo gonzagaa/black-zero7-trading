@@ -86,46 +86,182 @@ a {
   .wrapper { width: min(140rem, 100%); }
 }
 
-/* Topo com a logo (as duas páginas) */
-.topo {
+/* Largura do conteúdo do protótipo (.wrap: 1240px, 32px de respiro). O rodapé continua com o .wrapper do site. */
+.wrap {
   position: relative;
-  z-index: 2;
-  padding-top: 2.4rem;
-}
-
-.topo__logo {
-  width: 13rem;
+  z-index: 3;
+  width: min(124rem, 100%);
+  margin-inline: auto;
+  padding-inline: 2rem;
 }
 
 @media (min-width: 1080px) {
-  .topo { padding-top: 3.2rem; }
-  .topo__logo { width: 16rem; }
+  .wrap { padding-inline: 3.2rem; }
 }
 
-/* Fundo da marca: o "07" em relevo escuro do site, com luz verde */
-.fundo-marca {
+/* Topo com a logo (as duas páginas) */
+.topo {
+  padding-block: 2rem;
+}
+
+.topo__logo {
+  width: 12rem;
+}
+
+@media (min-width: 768px) {
+  .topo { padding-block: 3.4rem; }
+  .topo__logo { width: 15rem; }
+}
+
+/* ---------- Fundo em camadas (docs/design-aprovado.md, "Fundo") ----------
+   .cena recebe, de baixo para cima: o "07" em relevo, luz verde, campo de pontos, dois arcos, vinheta e grão.
+   Tudo estático: nada aqui anima. */
+.cena {
   position: relative;
   isolation: isolate;
-  background-color: var(--bg-black);
+  overflow: hidden;
+  background: var(--bg-black);
+
+  /* posições que mudam no celular (o cartão fica embaixo do texto) */
+  --luz-x: 80%;
+  --luz-y: 42%;
+  --pontos-pos: 64% 46%;
+  --arco1: 164rem;
+  --arco2: 108rem;
+  --arco1-top: 7rem;
+  --arco2-top: 30rem;
 }
 
-.fundo-marca::before {
-  content: '';
+.cena__camada {
   position: absolute;
   inset: 0;
-  z-index: -2;
-  background: url('../assets/fundo/bg-black.avif?v=202611131547') center top / cover no-repeat;
-  opacity: .9;
+  pointer-events: none;
 }
 
-.fundo-marca::after {
+.l07 {
+  z-index: 0;
+  background: url('../assets/fundo/bg-black.avif?v=202611131609') center / cover no-repeat;
+  filter: brightness(1.45) contrast(1.1);
+}
+
+.lluz {
+  z-index: 0;
+  background:
+    radial-gradient(42% 46% at var(--luz-x) var(--luz-y), rgba(16, 163, 106, .26), transparent 72%),
+    radial-gradient(60% 40% at 50% 0%, rgba(11, 93, 59, .30), transparent 75%);
+}
+
+.lpontos {
+  z-index: 1;
+  background-image: radial-gradient(rgba(255, 255, 255, .34) 1px, transparent 1.5px);
+  background-size: 13px 13px;
+  -webkit-mask-image: radial-gradient(58% 70% at var(--pontos-pos), #000 0%, rgba(0, 0, 0, .5) 38%, transparent 72%);
+          mask-image: radial-gradient(58% 70% at var(--pontos-pos), #000 0%, rgba(0, 0, 0, .5) 38%, transparent 72%);
+}
+
+.larcos {
+  z-index: 1;
+  inset: 0 auto 0 50%;
+  -webkit-mask-image: linear-gradient(#000 55%, transparent 96%);
+          mask-image: linear-gradient(#000 55%, transparent 96%);
+}
+
+.larcos i {
+  position: absolute;
+  left: calc(var(--d) / -2);
+  width: var(--d);
+  height: var(--d);
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, .2);
+}
+
+.larcos .a1 { --d: var(--arco1); top: var(--arco1-top); }
+.larcos .a2 { --d: var(--arco2); top: var(--arco2-top); border-color: rgba(255, 255, 255, .09); }
+
+.lvinheta {
+  z-index: 1;
+  background:
+    radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(0, 0, 0, .75) 100%),
+    linear-gradient(transparent 70%, var(--bg-black) 100%);
+}
+
+.lgrao {
+  z-index: 2;
+  opacity: .34;
+  mix-blend-mode: overlay;
+  background: var(--grao) 0 0 / 220px 220px;
+}
+
+@media (max-width: 1079px) {
+  .cena {
+    --luz-x: 50%;
+    --luz-y: 68%;
+    --pontos-pos: 50% 62%;
+    --arco1: 110rem;
+    --arco2: 72rem;
+    --arco1-top: 6rem;
+    --arco2-top: 26rem;
+  }
+}
+
+/* Títulos em branco-prata */
+.prata {
+  background: var(--prata);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Pílula de vidro (linha da data na hero e fecho do obrigado) */
+.pilula {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.4rem;
+  padding: 1.4rem 2.2rem 1.4rem 1.8rem;
+  border-radius: 1.6rem 0 1.6rem 0;
+  font-family: var(--ncs);
+  font-weight: 700;
+  font-size: 1.4rem;
+  line-height: 1.2;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(255, 255, 255, .04);
+  border: 1px solid rgba(255, 255, 255, .16);
+  -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
+}
+
+.ponto {
+  position: relative;
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--neon);
+  box-shadow: 0 0 12px var(--neon);
+}
+
+.ponto::after {
   content: '';
   position: absolute;
-  inset: auto 0 0 0;
-  height: 18rem;
-  z-index: -1;
-  background: linear-gradient(to bottom, rgba(4, 4, 4, 0), var(--bg-black));
-  pointer-events: none;
+  inset: -5px;
+  border-radius: 50%;
+  border: 1px solid var(--neon);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ponto::after { animation: pulso 2.4s ease-out infinite; }
+
+  @keyframes pulso {
+    0%       { transform: scale(.5); opacity: .9; }
+    70%, 100% { transform: scale(1.8); opacity: 0; }
+  }
+}
+
+@media (max-width: 1079px) {
+  .pilula { font-size: 1.2rem; padding: 1.2rem 1.8rem 1.2rem 1.6rem; gap: 1.2rem; }
 }
 
 /* Linha divisória do site */

@@ -1,3 +1,5 @@
+> **Atenção (13/11/2026):** o visual descrito aqui foi substituído pelo protótipo aprovado. Onde este documento divergir de `docs/design-aprovado.md`, vale o outro. O dourado foi recusado e não entra em lugar nenhum.
+
 # Marca e direção visual — Black Zero7 Trading
 
 A LP é uma peça da **Zero7 Trading (Zero7 Internacional)**. Quem chega do site `zero7trading.com` tem que reconhecer a mesma marca: preto, verde e o corte diagonal. A fonte da verdade é o site, na pasta irmã `../Zero7-Internacional` (**só leitura, nunca altere nada lá**).
@@ -15,11 +17,9 @@ Valores tirados do site (`css/global.css`, `css/button.css`, `css/campanha.css`)
 | `--z7-mid` | `#10a36a` | meio do degradê |
 | `--z7-sky` | `#34d399` | fim do degradê, bordas e brilhos |
 | neon | `#6FF0B8` | **um** destaque por dobra (no site ele marca valor: "90%", "Funding") |
-| `--camp-accent` | `#f1c36a` | ouro da campanha Black do site (tarja "Eclipse"). Aqui só na linha da data |
 
 Regras:
 - O preto domina. O verde aparece no botão, no foco dos campos, em bordas finas e em luz de fundo. Nada de bloco grande verde chapado.
-- O ouro `#f1c36a` liga a LP à campanha Black que já está no ar no site. Uso único: a linha "Oferta revelada ao vivo - 27/11 às 12h".
 - Não use o laranja da Black nacional (`#FF6A1A`). Aquela é outra marca.
 
 ## Forma

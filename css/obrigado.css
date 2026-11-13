@@ -1,119 +1,115 @@
-/* Página de obrigado. Base: Zero7-Internacional/css/obrigado.css. Ver docs/marca.md, "Página de obrigado". */
-
-.obrigado {
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 8rem;
-  overflow: hidden;
-}
+/* Página de obrigado. Valores do protótipo aprovado (_referencia/prototipo/obrigado.html, .obg).
+   Fundo em camadas: .cena em css/base.css. */
 
 .obrigado__corpo {
-  position: relative;
-  flex: 1;
-  width: min(70rem, 100%);
-  margin-inline: auto;
-  padding: 5.6rem 2.4rem 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 2rem;
   text-align: center;
-}
-
-/* luz verde atrás do título */
-.obrigado__corpo::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 20%;
-  width: 130%;
-  aspect-ratio: 1.6 / 1;
-  transform: translate(-50%, -50%);
-  z-index: -1;
-  background: radial-gradient(closest-side, rgba(16, 163, 106, .22), rgba(4, 4, 4, 0));
-  pointer-events: none;
+  padding-block: 2.4rem 9.6rem;
 }
 
 .obrigado__titulo {
   font-family: var(--ncs);
   font-weight: 900;
   text-transform: uppercase;
-  /* no site: clamp(5rem, 12vw, 11rem); aqui o mínimo é menor porque a Zalando Sans Expanded é larga e
-     "OBRIGADO!" não cabe a 50px em 360 px */
-  font-size: clamp(3.6rem, 10vw, 11rem);
-  line-height: 1;
-  letter-spacing: -.02em;
-  color: #fff;
-  text-shadow: 0 0 4rem rgba(255, 255, 255, .15);
+  letter-spacing: -.03em;
+  line-height: .95;
+  /* no protótipo o mínimo é 52px; em 360 px "OBRIGADO!" não cabe nisso, então o mínimo aqui é menor */
+  font-size: clamp(3.6rem, 11.5vw, 16.8rem);
+  background: radial-gradient(90% 120% at 35% 15%, #ffffff 0%, #f2f2f2 40%, #9a9a9a 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 12px 40px rgba(0, 0, 0, .6));
 }
 
+/* "Cadastro feito com sucesso!" com o check verde ao lado */
 .obrigado__subtitulo {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-top: 2rem;
   font-family: var(--ncs);
-  font-size: 2rem;
   font-weight: 700;
-  line-height: 1.3;
+  font-size: 1.8rem;
+  line-height: 1.25;
   color: #fff;
-}
-
-.obrigado__descricao {
-  font-size: 1.7rem;
-  line-height: 1.6;
-  color: var(--text-2);
-  max-width: 60rem;
-}
-
-.canais {
-  width: 100%;
-  display: grid;
-  gap: 1.6rem;
-  margin-top: .8rem;
   text-align: left;
 }
 
-.canal {
+.obrigado__subtitulo svg {
+  flex: none;
+  width: 3rem;
+  height: 3rem;
+  padding: .6rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--z7-mid), var(--z7-sky));
+}
+
+.obrigado__descricao {
+  margin: 3.2rem 0 2.4rem;
+  max-width: 64rem;
+  font-size: 1.7rem;
+  line-height: 1.55;
+  color: #d7ded9;
+}
+
+.canais {
   display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: start;
-  gap: 1.4rem;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.6rem;
+  width: min(98rem, 100%);
+  text-align: left;
+}
+
+/* cartões de vidro iguais ao do formulário */
+.canal {
+  position: relative;
+  display: flex;
+  gap: 1.6rem;
+  align-items: center;
   padding: 2.4rem 2rem;
-  background: rgba(255, 255, 255, .03);
-  border: 1px solid rgba(52, 211, 153, .25);
-  border-radius: var(--corte);
-  -webkit-backdrop-filter: blur(1.2rem);
-  backdrop-filter: blur(1.2rem);
-  font-size: 1.6rem;
-  line-height: 1.6;
-  color: var(--color-text);
+  border-radius: 2.6rem 0 2.6rem 0;
+  background: linear-gradient(160deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .02) 45%, rgba(0, 0, 0, .35));
+  border: 1px solid rgba(255, 255, 255, .12);
+  -webkit-backdrop-filter: blur(16px);
+          backdrop-filter: blur(16px);
+  box-shadow: 0 30px 70px -30px rgba(0, 0, 0, .9), inset 0 1px 0 rgba(255, 255, 255, .09);
 }
 
 .canal__icone {
-  flex: none;
-  width: 4.4rem;
-  height: 4.4rem;
   display: grid;
   place-items: center;
-  border-radius: 1.2rem 0 1.2rem 0;
-  background: linear-gradient(135deg, rgba(52, 211, 153, .22), rgba(11, 93, 59, .10));
-  border: 1px solid rgba(52, 211, 153, .3);
+  flex: none;
+  width: 4.8rem;
+  height: 4.8rem;
+  border-radius: 1.6rem 0 1.6rem 0;
+  background: linear-gradient(135deg, var(--z7-deep), var(--z7-mid));
+  box-shadow: 0 0 30px rgba(52, 211, 153, .35);
 }
 
 .canal__icone svg {
-  width: 2.2rem;
-  height: 2.2rem;
+  width: 2.4rem;
+  height: 2.4rem;
   fill: none;
-  stroke: var(--z7-sky);
+  stroke: #fff;
   stroke-width: 1.8;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
+.canal p {
+  font-size: 1.6rem;
+  line-height: 1.55;
+  color: #eef6f1;
+}
+
 .canal a {
   color: var(--neon);
   font-weight: 600;
-  text-decoration: underline;
-  text-underline-offset: .3rem;
+  text-underline-offset: .2rem;
   overflow-wrap: anywhere;
 }
 
@@ -121,40 +117,40 @@
   color: #fff;
 }
 
+/* aviso do WhatsApp: caixa escura com borda fina, bem legível */
 .canal__aviso {
   display: block;
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, .1);
-  color: var(--text-2);
+  margin-top: 1.4rem;
+  padding: 1.4rem 1.6rem;
+  border-radius: 1.2rem 0 1.2rem 0;
+  font-size: 1.5rem;
+  line-height: 1.55;
+  color: #e9efeb;
+  background: rgba(0, 0, 0, .4);
+  border: 1px solid rgba(255, 255, 255, .16);
 }
 
-.canal__aviso strong {
-  color: #fff;
-  font-weight: 700;
-}
-
+/* fecho: a mesma pílula da data */
 .obrigado__fecho {
-  margin-top: 1.2rem;
-  font-family: var(--ncs);
-  font-size: 1.6rem;
-  font-weight: 700;
-  line-height: 1.4;
-  text-transform: uppercase;
-  letter-spacing: .02em;
-  color: #fff;
+  margin-top: 3.6rem;
+  text-align: left;
 }
 
 @media (min-width: 768px) {
-  .obrigado__corpo { padding-top: 7.2rem; gap: 2.4rem; }
-  .obrigado__subtitulo { font-size: 2.6rem; }
-  .obrigado__descricao { font-size: 1.8rem; }
-  /* os cartões passam um pouco dos 70rem do texto, para o e-mail caber numa linha */
-  .canais {
-    grid-template-columns: 1fr 1fr;
-    width: min(88rem, calc(100vw - 4.8rem));
-  }
-  .canal a { white-space: nowrap; }
-  .canal { padding: 2.8rem 2.4rem; }
-  .obrigado__fecho { font-size: 1.8rem; }
+  .obrigado__corpo { padding-block: 4.8rem 15rem; }
+  .obrigado__subtitulo { font-size: 2.4rem; margin-top: 2.6rem; }
+  .obrigado__descricao { margin: 4.4rem 0 2.6rem; font-size: 2rem; }
+  .canais { gap: 2.6rem; width: min(64rem, 100%); }
+  .canal { gap: 2rem; padding: 3rem; }
+  .canal__icone { width: 5.6rem; height: 5.6rem; }
+  .canal__icone svg { width: 2.6rem; height: 2.6rem; }
+  .canal p { font-size: 1.8rem; }
+  .canal__aviso { font-size: 1.55rem; }
+  .canal a { overflow-wrap: normal; white-space: nowrap; }
+  .obrigado__fecho { margin-top: 5.4rem; font-size: 1.6rem; padding: 1.8rem 2.6rem; }
+}
+
+/* dois cartões lado a lado, como no protótipo */
+@media (min-width: 1080px) {
+  .canais { grid-template-columns: repeat(2, minmax(0, 1fr)); width: min(98rem, 100%); }
 }

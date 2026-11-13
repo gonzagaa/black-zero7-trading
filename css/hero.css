@@ -1,139 +1,100 @@
-/* Dobra 1: hero com o formulário. Ver docs/marca.md, "As dobras > 1. Hero". */
-
-.hero {
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 6.4rem;
-  overflow: hidden;
-}
+/* Dobra 1: hero com o formulário. Valores do protótipo aprovado (_referencia/prototipo/lp.html).
+   Fundo em camadas: .cena em css/base.css. */
 
 .hero__grade {
-  position: relative;
-  flex: 1;
   display: grid;
-  align-content: center;
   gap: 3.2rem;
-  padding-top: 3.2rem;
-}
-
-.hero__texto {
-  display: grid;
-  gap: 1.6rem;
+  padding-block: 1.2rem 9.6rem;
 }
 
 .hero__titulo {
   font-family: var(--ncs);
   font-weight: 900;
   text-transform: uppercase;
-  font-size: clamp(3.2rem, 8.6vw, 5.6rem);
-  line-height: 1.02;
-  letter-spacing: -.01em;
-  color: #fff;
-  text-wrap: balance;
-  text-shadow: 0 0 4rem rgba(255, 255, 255, .12);
+  line-height: .92;
+  letter-spacing: -.025em;
+  font-size: clamp(4.4rem, 12.4vw, 10.4rem);
+  filter: drop-shadow(0 12px 40px rgba(0, 0, 0, .6));
+}
+
+.hero__titulo span {
+  display: block;
 }
 
 .hero__lead {
+  margin-top: 2rem;
+  max-width: 52rem;
   font-size: 1.7rem;
   line-height: 1.55;
-  color: var(--text-2);
-  max-width: 54rem;
+  color: #d7ded9;
 }
 
 .hero__data {
-  display: inline-flex;
-  align-items: center;
-  gap: 1rem;
-  font-family: var(--ncs);
-  font-weight: 600;
-  font-size: 1.3rem;
-  letter-spacing: .04em;
-  text-transform: uppercase;
-  color: var(--camp-accent);
+  margin-top: 2.4rem;
 }
 
-.hero__data::before {
-  content: '';
-  flex: none;
-  width: .8rem;
-  height: .8rem;
-  border-radius: 50%;
-  background: var(--camp-accent);
-  box-shadow: 0 0 0 .4rem rgba(241, 195, 106, .16), 0 0 1.6rem rgba(241, 195, 106, .55);
-}
-
-/* ---------- Cartão do formulário ---------- */
-
-.hero__form-area {
-  position: relative;
-}
-
-/* luz verde suave atrás do formulário */
-.hero__form-area::before {
-  content: '';
-  position: absolute;
-  inset: -20% -30%;
-  z-index: -1;
-  background: radial-gradient(closest-side, rgba(16, 163, 106, .30), rgba(11, 93, 59, .12) 55%, rgba(4, 4, 4, 0) 100%);
-  filter: blur(2rem);
-  pointer-events: none;
-}
+/* ---------- Cartão do formulário: vidro escuro ---------- */
 
 .cartao {
   position: relative;
-  display: grid;
-  gap: 1.8rem;
-  padding: 2.4rem 2rem;
-  background: rgba(255, 255, 255, .03);
-  border: 1px solid rgba(52, 211, 153, .25);
-  border-radius: var(--corte);
-  -webkit-backdrop-filter: blur(1.2rem);
-  backdrop-filter: blur(1.2rem);
-  box-shadow: 0 2.4rem 6rem rgba(0, 0, 0, .45), inset 0 1px 0 rgba(255, 255, 255, .05);
+  padding: 2.6rem 2rem 2.4rem;
+  border-radius: 3rem 0 3rem 0;
+  background: linear-gradient(160deg, rgba(255, 255, 255, .07) 0%, rgba(255, 255, 255, .02) 45%, rgba(0, 0, 0, .35) 100%);
+  border: 1px solid rgba(255, 255, 255, .12);
+  -webkit-backdrop-filter: blur(18px);
+          backdrop-filter: blur(18px);
+  box-shadow:
+    0 40px 90px -30px rgba(0, 0, 0, .9),
+    0 0 80px -20px rgba(16, 163, 106, .30),
+    inset 0 1px 0 rgba(255, 255, 255, .10);
 }
 
 .cartao__chamada {
+  margin-bottom: 2rem;
   font-family: var(--ncs);
   font-weight: 700;
-  font-size: 1.6rem;
-  line-height: 1.35;
+  font-size: 1.8rem;
+  line-height: 1.25;
   color: #fff;
 }
 
 .campo {
-  display: grid;
-  gap: .6rem;
+  display: flex;
+  flex-direction: column;
+  gap: .9rem;
+  margin-bottom: 1.6rem;
 }
 
 .campo label {
   font-size: 1.4rem;
-  font-weight: 500;
-  color: var(--text-2);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: .02em;
+  color: #cfd8d3;
 }
 
 .campo input {
   width: 100%;
-  min-height: 5.2rem;
-  padding: 1.2rem 1.6rem;
-  font-size: 1.6rem; /* 16px: o iOS não dá zoom no foco */
-  color: var(--color-text);
-  background: rgba(4, 4, 4, .55);
-  border: 1px solid rgba(255, 255, 255, .16);
-  border-radius: 1.2rem 0 1.2rem 0;
-  transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
+  height: 5.2rem;
+  padding: 0 1.8rem;
+  font: 500 1.7rem var(--corpo);
+  color: #fff;
+  border-radius: 1.6rem 0 1.6rem 0;
+  background: rgba(0, 0, 0, .55);
+  border: 1px solid rgba(255, 255, 255, .14);
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, .6);
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
 }
 
 .campo input:hover {
-  border-color: rgba(52, 211, 153, .45);
+  border-color: rgba(255, 255, 255, .24);
 }
 
 .campo input:focus,
 .campo input:focus-visible {
-  outline: none;
   border-color: var(--z7-sky);
-  background: rgba(4, 4, 4, .75);
-  box-shadow: 0 0 0 .4rem rgba(52, 211, 153, .22), 0 0 2.4rem rgba(52, 211, 153, .18);
+  box-shadow: 0 0 0 4px rgba(52, 211, 153, .18), inset 0 2px 10px rgba(0, 0, 0, .6);
 }
 
 .campo input[aria-invalid='true'] {
@@ -141,14 +102,14 @@
 }
 
 .campo input[aria-invalid='true']:focus {
-  box-shadow: 0 0 0 .4rem rgba(255, 138, 138, .22);
+  box-shadow: 0 0 0 4px rgba(255, 138, 138, .2), inset 0 2px 10px rgba(0, 0, 0, .6);
 }
 
 /* sem caixa amarela do preenchimento automático */
 .campo input:-webkit-autofill {
-  -webkit-text-fill-color: var(--color-text);
-  -webkit-box-shadow: 0 0 0 100rem #0b120f inset;
-  caret-color: var(--color-text);
+  -webkit-text-fill-color: #fff;
+  -webkit-box-shadow: 0 0 0 100rem #0a0d0b inset;
+  caret-color: #fff;
 }
 
 .campo__erro,
@@ -164,6 +125,7 @@
 }
 
 .cartao__erro {
+  margin-top: 1.4rem;
   text-align: center;
 }
 
@@ -176,219 +138,119 @@
   overflow: hidden;
 }
 
-/* ---------- Botão do site (.z7-btnx), cópia de css/button.css ---------- */
-
-@property --mx   { syntax: '<percentage>'; inherits: false; initial-value: 50%; }
-@property --my   { syntax: '<percentage>'; inherits: false; initial-value: 50%; }
-@property --spin { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+/* ---------- Botão (protótipo: .btn) ----------
+   O degradê verde da marca, o brilho que passa e a "gota" com a seta. As classes são as do botão do site
+   (.z7-btnx); o anel girando e o "respirar" saíram porque animavam filter (Fase 1D, item 4). */
 
 .z7-btnx {
-  --h: 7rem;
-  --in: .9rem;
-  --capw: 6.3rem;
-  --r: calc(var(--h) / 3);
-
-  --sh1x: 0rem;
-  --sh1y: 0rem;
-  --sh2x: 0rem;
-  --sh2y: 0rem;
-
-  /* posição do mouse: variáveis comuns (sem @property) para chegarem ao ::before e ao __bg */
   --px: 50%;
   --py: 50%;
 
   position: relative;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  min-height: var(--h);
-  padding-left: 3.6rem;
-  padding-right: calc(var(--capw) + (var(--in) * 2) + 1rem);
-  border-radius: var(--r) 0 var(--r) 0;
-  text-decoration: none;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
+  justify-content: space-between;
+  gap: 1.6rem;
+  width: 100%;
+  min-height: 6.4rem;
+  margin-top: .8rem;
+  padding: .8rem .8rem .8rem 2rem;
+  border: 0;
   cursor: pointer;
-
-  font-family: var(--ncs);
-  font-weight: 600;
-  font-size: 1.6rem;
-  letter-spacing: .08rem;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, .96);
-
-  background: transparent;
-  border: .1rem solid rgba(255, 255, 255, .10);
   overflow: hidden;
   isolation: isolate;
-
-  will-change: transform, filter, box-shadow;
-  transition:
-    filter .55s var(--ease),
-    box-shadow .60s var(--ease);
-
-  box-shadow:
-    0 0 4.5rem rgba(11, 93, 59, .34),
-    0 0 4.6rem rgba(52, 211, 153, .24),
-    0 0 0 .4rem rgba(52, 211, 153, .10);
+  border-radius: 2.4rem 0 2.4rem 0;
+  font-family: var(--ncs);
+  font-weight: 700;
+  font-size: 1.4rem;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  text-align: left;
+  color: #fff;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  /* protótipo: #063b26 0%, deep 30%, mid 68%, sky 100%. Ajuste de contraste (Fase 1D): o trecho claro fica só nos
+     últimos 8rem (gota da seta + vão), e sob o rótulo o verde vai até #0d874f, que dá 4,5:1 com o branco. */
+  background: linear-gradient(90deg, #063b26 0%, var(--z7-deep) 30%, #0d874f calc(100% - 8rem), var(--z7-mid) calc(100% - 5rem), var(--z7-sky) 100%);
+  box-shadow: 0 0 44px rgba(52, 211, 153, .30), inset 0 1px 0 rgba(255, 255, 255, .25);
+  transition: box-shadow .5s var(--ease);
 }
 
-.z7-btnx::before {
-  content: '';
-  position: absolute;
-  inset: -2.4rem;
-  border-radius: calc(var(--r) + 2.4rem) 0 calc(var(--r) + 2.4rem) 0;
-  z-index: 0;
-  background:
-    radial-gradient(130% 160% at var(--px) var(--py),
-      rgba(52, 211, 153, .62) 0%,
-      rgba(52, 211, 153, .20) 34%,
-      rgba(11, 93, 59, .10) 58%,
-      rgba(0, 0, 0, 0) 74%),
-    radial-gradient(140% 120% at 20% 30%,
-      rgba(255, 255, 255, .14) 0%,
-      rgba(255, 255, 255, 0) 55%);
-  filter: blur(2.8rem);
-  opacity: .92;
-  transition: opacity .60s var(--ease);
-}
-
-.z7-btnx::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: var(--r) 0 var(--r) 0;
-  padding: .1rem;
-  z-index: 5;
-  pointer-events: none;
-  background:
-    conic-gradient(from var(--spin),
-      rgba(52, 211, 153, 0) 0deg,
-      rgba(52, 211, 153, .82) 60deg,
-      rgba(255, 255, 255, .28) 95deg,
-      rgba(11, 93, 59, .82) 170deg,
-      rgba(16, 163, 106, .58) 250deg,
-      rgba(52, 211, 153, 0) 360deg);
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-          mask-composite: exclude;
-  opacity: .90;
-}
-
+/* luz que acompanha o mouse */
 .z7-btnx__bg {
   position: absolute;
   inset: 0;
-  border-radius: var(--r) 0 var(--r) 0;
-  z-index: 1;
-  background:
-    radial-gradient(140% 180% at var(--px) var(--py),
-      rgba(255, 255, 255, .20) 0%,
-      rgba(255, 255, 255, .07) 22%,
-      rgba(255, 255, 255, 0) 56%),
-    linear-gradient(90deg,
-      #063b26 0%,
-      var(--z7-deep) 32%,
-      var(--z7-mid) 68%,
-      var(--z7-sky) 100%);
-  background-size: 130% 130%;
-  background-position: 0% 50%;
-  filter: saturate(1.10) contrast(1.05);
+  z-index: 0;
+  border-radius: inherit;
+  background: radial-gradient(140% 180% at var(--px) var(--py), rgba(255, 255, 255, .22) 0%, rgba(255, 255, 255, .06) 24%, rgba(255, 255, 255, 0) 56%);
+  opacity: 0;
+  transition: opacity .5s var(--ease);
 }
 
+/* brilho que passa: só transform (protótipo: left -45% → 120%, largura 38%) */
 .z7-btnx__shine {
   position: absolute;
-  inset: -35% -55%;
-  z-index: 2;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 38%;
+  z-index: 1;
   pointer-events: none;
-  background: linear-gradient(115deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0) 44%,
-    rgba(255, 255, 255, .18) 50%,
-    rgba(255, 255, 255, 0) 56%,
-    rgba(255, 255, 255, 0) 100%);
-  transform: translateX(-60%);
-  opacity: 1;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .34), transparent);
+  transform: translateX(-118%) skewX(-18deg);
 }
 
 .z7-btnx__label {
   position: relative;
-  z-index: 6;
-  white-space: nowrap;
-  line-height: 1;
-  text-shadow: 0 1.4rem 3.6rem rgba(0, 0, 0, .35);
+  z-index: 2;
+  line-height: 1.25;
 }
 
 .z7-btnx__cap {
-  position: absolute;
-  top: var(--in);
-  right: var(--in);
-  height: calc(100% - (var(--in) * 2));
-  width: var(--capw);
-  --cr: calc((var(--h) - (var(--in) * 2)) / 2);
-  border-radius: var(--cr) 0 var(--cr) var(--cr);
+  position: relative;
+  z-index: 2;
   display: grid;
   place-items: center;
-  z-index: 7;
-  background:
-    radial-gradient(120% 120% at 30% 30%,
-      rgba(255, 255, 255, .20) 0%,
-      rgba(255, 255, 255, .08) 40%,
-      rgba(255, 255, 255, 0) 72%),
-    linear-gradient(90deg,
-      rgba(255, 255, 255, .08) 0%,
-      rgba(255, 255, 255, .04) 42%,
-      rgba(255, 255, 255, .02) 100%),
-    linear-gradient(135deg,
-      rgba(52, 211, 153, .32),
-      rgba(11, 93, 59, .10));
-  border: .1rem solid rgba(255, 255, 255, .12);
-  box-shadow:
-    inset 0 .1rem 0 rgba(255, 255, 255, .16),
-    0 1.2rem 2.6rem rgba(0, 0, 0, .20);
+  flex: none;
+  width: 5rem;
+  height: 4.8rem;
+  border-radius: 999px 0 999px 999px;
+  background: rgba(255, 255, 255, .2);
+  border: 1px solid rgba(255, 255, 255, .35);
 }
 
-.z7-btnx__arrow {
-  font-family: var(--corpo);
-  font-size: 2.2rem;
-  line-height: 1;
-  transform: translateX(0);
-  transition: transform .60s var(--ease);
+.z7-btnx__cap svg {
+  width: 2.2rem;
+  height: 2.2rem;
+  transition: transform .6s var(--ease);
 }
 
 .z7-btnx:hover {
-  filter: saturate(1.22) contrast(1.08);
-  box-shadow:
-    var(--sh1x, 0rem) var(--sh1y, 0rem) 7.5rem rgba(11, 93, 59, .52),
-    var(--sh2x, 0rem) var(--sh2y, 0rem) 4.6rem rgba(52, 211, 153, .36),
-    0 0 0 .4rem rgba(52, 211, 153, .16);
+  box-shadow: 0 0 60px rgba(52, 211, 153, .42), inset 0 1px 0 rgba(255, 255, 255, .3);
 }
 
-.z7-btnx:hover::before { opacity: 1; }
-.z7-btnx:hover .z7-btnx__arrow { transform: translateX(.35rem); }
+.z7-btnx:hover .z7-btnx__bg { opacity: 1; }
+.z7-btnx:hover .z7-btnx__cap svg { transform: translateX(.3rem); }
 
-.z7-btnx:hover .z7-btnx__shine {
-  opacity: .95;
-  animation: z7x-shineHover .95s var(--ease) forwards;
+.z7-btnx:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 4px;
 }
 
-@keyframes z7x-shineHover {
-  to { transform: translateX(60%); opacity: 0; }
+.z7-btnx[aria-disabled='true'] {
+  cursor: progress;
 }
 
+/* ripple no clique */
 .z7-btnx .z7x-ripple {
   position: absolute;
-  z-index: 8;
+  z-index: 1;
   width: 1.4rem;
   height: 1.4rem;
   border-radius: 999rem;
   pointer-events: none;
-  background: radial-gradient(circle,
-    rgba(255, 255, 255, .55) 0%,
-    rgba(52, 211, 153, .34) 35%,
-    rgba(52, 211, 153, 0) 70%);
+  background: radial-gradient(circle, rgba(255, 255, 255, .55) 0%, rgba(52, 211, 153, .34) 35%, rgba(52, 211, 153, 0) 70%);
   transform: translate(-50%, -50%) scale(0);
-  opacity: .95;
   animation: z7x-ripple .82s var(--ease) forwards;
 }
 
@@ -396,117 +258,47 @@
   to { transform: translate(-50%, -50%) scale(28); opacity: 0; }
 }
 
-.z7-btnx:focus-visible {
-  outline: .2rem solid #fff;
-  outline-offset: .4rem;
-  box-shadow:
-    0 2.8rem 7.5rem rgba(11, 93, 59, .52),
-    0 1.8rem 4.6rem rgba(52, 211, 153, .36),
-    0 0 0 .5rem rgba(52, 211, 153, .24);
-}
-
 @media (prefers-reduced-motion: no-preference) {
-  .z7-btnx { animation: z7x-ring 2.2s linear infinite, z7x-breathe 3.8s ease-in-out infinite; }
-  .z7-btnx__bg { animation: z7x-gradient 7.5s ease-in-out infinite; }
-  .z7-btnx__shine { animation: z7x-shineLoop 3.2s ease-in-out infinite; }
-  .z7-btnx::before { animation: z7x-glow 3.8s ease-in-out infinite; }
+  .z7-btnx__shine { animation: z7x-passa 3.8s ease-in-out infinite; }
+
+  @keyframes z7x-passa {
+    0%        { transform: translateX(-118%) skewX(-18deg); }
+    55%, 100% { transform: translateX(316%) skewX(-18deg); }
+  }
 }
 
-/* reduced motion: sem loop, sem ripple, sem brilho passando no hover */
 @media (prefers-reduced-motion: reduce) {
-  .z7-btnx,
-  .z7-btnx::before,
-  .z7-btnx__bg,
-  .z7-btnx__shine,
-  .z7-btnx:hover .z7-btnx__shine { animation: none !important; }
   .z7-btnx .z7x-ripple { display: none; }
-  .z7-btnx:hover .z7-btnx__arrow { transform: none; }
+  .z7-btnx:hover .z7-btnx__cap svg { transform: none; }
 }
 
-@keyframes z7x-ring { to { --spin: 360deg; } }
-
-@keyframes z7x-breathe {
-  0%, 100% { filter: saturate(1.00) contrast(1.00); }
-  50%      { filter: saturate(1.14) contrast(1.08); }
-}
-
-@keyframes z7x-gradient {
-  0%   { background-position: 0% 50%; filter: saturate(1.08) contrast(1.04); }
-  50%  { background-position: 100% 50%; filter: saturate(1.16) contrast(1.10); }
-  100% { background-position: 0% 50%; filter: saturate(1.08) contrast(1.04); }
-}
-
-@keyframes z7x-shineLoop {
-  0%   { transform: translateX(-75%); opacity: .12; }
-  40%  { opacity: .30; }
-  60%  { opacity: .18; }
-  100% { transform: translateX(75%); opacity: .10; }
-}
-
-@keyframes z7x-glow {
-  0%, 100% { opacity: .86; }
-  50%      { opacity: 1.00; }
-}
-
-/* Ajustes do botão para o formulário: largura total do cartão e rótulo que quebra em telas estreitas */
-.cartao .z7-btnx {
-  width: 100%;
-  justify-content: center;
-  margin-top: .6rem;
-}
-
-.cartao .z7-btnx__label {
-  text-align: center;
-}
-
-.z7-btnx[aria-disabled='true'] {
-  cursor: progress;
-}
-
-@media (max-width: 559px) {
-  .cartao .z7-btnx {
-    --h: 6.4rem;
-    --capw: 5.2rem;
-    --in: .7rem;
-    padding-left: 1.8rem;
-    padding-block: 1.2rem;
-    font-size: 1.4rem;
-    letter-spacing: .04rem;
-  }
-
-  .cartao .z7-btnx__label {
-    white-space: normal;
-    line-height: 1.25;
-  }
-}
-
-/* ---------- Desktop: duas colunas ---------- */
+/* ---------- Tablet ---------- */
 
 @media (min-width: 768px) {
-  .hero__titulo { font-size: clamp(4.8rem, 7vw, 6.4rem); }
-  .cartao { padding: 3.2rem; }
+  .hero__grade { padding-block: 2.4rem 12rem; gap: 4rem; }
+  .hero__titulo { font-size: clamp(6.4rem, 10vw, 10.4rem); }
+  .hero__lead { margin-top: 2.6rem; font-size: 1.8rem; }
+  .hero__data { margin-top: 3rem; }
+  .cartao { padding: 3.6rem 3.4rem 3.4rem; }
+  .cartao__chamada { font-size: 2.1rem; margin-bottom: 2.6rem; }
+  .campo { margin-bottom: 2rem; }
+  .campo input { height: 5.8rem; }
+  .z7-btnx { min-height: 7.2rem; padding: 0 1rem 0 2.8rem; font-size: 1.55rem; }
+  .z7-btnx__cap { width: 5.4rem; height: 5.2rem; }
 }
+
+/* ---------- Desktop: duas colunas (protótipo, 1440 px) ---------- */
 
 @media (min-width: 1080px) {
   .hero__grade {
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, .88fr);
+    gap: 5.6rem;
     align-items: center;
-    gap: 6.4rem;
-    padding-top: 4rem;
+    padding-block: 5.6rem 15rem;
   }
 
-  .hero__texto { gap: 2.4rem; }
-
-  .hero__titulo { font-size: clamp(5.6rem, 5.6vw, 9.6rem); }
-
-  .hero__lead { font-size: 1.9rem; }
-
-  .hero__data { font-size: 1.4rem; }
-
-  .cartao {
-    gap: 2rem;
-    padding: 3.6rem 3.2rem;
-  }
-
-  .cartao__chamada { font-size: 1.8rem; }
+  .hero__titulo { font-size: clamp(4.6rem, 7.3vw, 10.4rem); }
+  .hero__lead { margin-top: 3rem; font-size: 2rem; }
+  .hero__data { margin-top: 3.4rem; }
+  .cartao { padding: 4rem 3.8rem 3.8rem; }
 }

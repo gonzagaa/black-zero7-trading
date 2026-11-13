@@ -42,6 +42,28 @@ Faça **somente a fase pedida**. Ao terminar, escreva o relatório em `relatorio
 
 ---
 
+## Fase 1D — Rodada de design (protótipo aprovado)
+
+**Objetivo:** aplicar nas duas páginas o visual aprovado pelo Gustavo, sem mexer em copy nem em comportamento.
+
+**Leia antes:** `docs/design-aprovado.md` e os dois arquivos de `_referencia/prototipo/` (abra no navegador e leia o CSS).
+
+**Entregar:**
+
+1. Fundo em camadas, cores, título, pílula da data, cartão do formulário, molduras dos comprovantes e página de obrigado como no protótipo.
+2. Versão de celular e tablet derivada do protótipo (ele só cobre 1440 px), com as mesmas camadas. Em 390 × 844 o botão continua visível sem rolar muito.
+3. Remoção do ouro: nenhum `#f1c36a` nem variação dele sobra em CSS, tokens ou documentação viva.
+4. Grão e demais texturas sem custo de desempenho: nada de imagem grande, nada de `filter` animado; com `prefers-reduced-motion` nada se move sozinho.
+5. Capturas nas 7 larguras das duas páginas em `shots/fase-1d/`, e uma captura lado a lado (protótipo × página) em 1440 px de cada página.
+
+**Aceite:**
+- Em 1440 px, a página e o protótipo são a mesma coisa a olho nu. Aponte você mesmo, no relatório, cada diferença que sobrar.
+- Conferência da copy sem diferença.
+- Contraste de texto ≥ 4,5:1 medido sobre o fundo novo (com grão e pontos).
+- Console sem erros, rede sem 404, sem rolagem horizontal, fluxo do formulário intacto.
+
+---
+
 ## Fase 2 — RD Station, medição e publicação
 
 **Só começa depois que `docs/rdstation.md` tiver a seção "A confirmar na conta" preenchida.** Se ela ainda estiver em branco, pare e avise.
