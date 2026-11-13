@@ -53,9 +53,11 @@ Faça **somente a fase pedida**. Ao terminar, escreva o relatório em `relatorio
    - GTM `GTM-NLVJR569` (o mesmo do site), com o `noscript` logo depois do `<body>`.
    - No sucesso do envio, antes de redirecionar: `dataLayer.push({ event: 'lead_black_trading' })`. Nenhum dado pessoal (nome, e-mail) vai para o dataLayer nem para a URL.
    - Hotjar e Zendesk não entram, a não ser que o Gustavo peça.
-3. `canonical`, `og:*` e `og:image` com URL absoluta, depois que o endereço de publicação for confirmado.
-4. Teste de ponta a ponta com um lead de teste (ver a lista em `docs/rdstation.md`) e a evidência no relatório.
-5. Roteiro de publicação, passo a passo, no relatório. **Não publique nada por conta própria.**
+3. Selo do Reclame Aqui no rodapé (`#ra-verified-seal`), com o mesmo script do site (terceiro permitido):
+   `<script type="text/javascript" id="ra-embed-verified-seal" src="https://s3.amazonaws.com/raichu-beta/ra-verified/bundle.js" data-id="WDRYanlCUWlyT0xFUTFZeDp6ZXJvNy10ZXNvdXJhcmlh" data-target="ra-verified-seal" data-model="2"></script>`
+4. `canonical`, `og:*` e `og:image` com URL absoluta, depois que o endereço de publicação for confirmado.
+5. Teste de ponta a ponta com um lead de teste (ver a lista em `docs/rdstation.md`) e a evidência no relatório.
+6. Roteiro de publicação, passo a passo, no relatório. **Não publique nada por conta própria.**
 
 ---
 

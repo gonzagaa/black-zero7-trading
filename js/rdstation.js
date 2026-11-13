@@ -2,8 +2,8 @@
 //
 // Fase 1: só o modo simulado. O modo real (API de Conversões) entra na Fase 2.
 
-import { RD } from './config.js?v=202611131539';
-import { lerUtms } from './utm.js?v=202611131539';
+import { RD } from './config.js?v=202611131547';
+import { lerUtms } from './utm.js?v=202611131547';
 
 const esperar = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 

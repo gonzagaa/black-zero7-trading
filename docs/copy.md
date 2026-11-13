@@ -76,5 +76,9 @@ Só estes podem existir além da copy, porque a página não funciona sem eles. 
 | Erro de envio | Não foi possível enviar agora. Tente de novo. | falha de rede |
 | Botão enquanto envia | ENVIANDO... | evita duplo clique |
 | `alt` das imagens dos comprovantes | Comprovante de pagamento a trader Zero7 | acessibilidade |
+| `alt` da logo (topo e rodapé) | Zero7 | acessibilidade (aprovado na Fase 1, ajuste) |
+| `aria-label` do ícone do Instagram no rodapé | Instagram | acessibilidade (aprovado na Fase 1, ajuste) |
+| `aria-label` do ícone do TikTok no rodapé | TikTok | acessibilidade (aprovado na Fase 1, ajuste) |
+| `aria-label` do ícone do Facebook no rodapé | Facebook | acessibilidade (aprovado na Fase 1, ajuste) |
 
 `meta description` e `og:*`: use o texto da hero ("Uma oferta imperdível para você testar e operar Day Trade no mercado americano de futuros.").

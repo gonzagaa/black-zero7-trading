@@ -40,6 +40,14 @@ HTML, CSS e JS puros. Sem framework e sem etapa de build.
 8. **Caminhos relativos.** Nada começa com `/`.
 9. **Não publique.** Deploy é decisão do Gustavo.
 
+## Exceções aprovadas ao "mesmo rodapé do site"
+
+Aprovadas pelo Gustavo em 13/11/2026 (Fase 1, ajuste). Além dos três ajustes de `docs/marca.md`:
+
+1. "Cookie" e "Políticas de Uso" são texto sem link (no site são `<a href="">`, que recarrega a página).
+2. O ano é "© 2026" (no site, "© 2025").
+3. Ícones sociais com `aria-label` ("Instagram", "TikTok", "Facebook") e área de toque de 44 × 44 px; logo com `alt="Zero7"`.
+
 ## Pendências abertas (não resolva sozinho; pergunte)
 
 | # | Pendência | Estado |

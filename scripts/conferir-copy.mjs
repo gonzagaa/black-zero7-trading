@@ -60,7 +60,9 @@ function extrair(html) {
 }
 
 const rodape = extrair(ler('_referencia/rodape/rodape.html')).blocos;
-const permitidos = new Set([...tecnicos, ...rodape]);
+// exceções aprovadas ao "mesmo rodapé do site" (CLAUDE.md, "Exceções aprovadas")
+const EXCECOES_RODAPE = ['© 2026 | Todos os direitos reservados.'];
+const permitidos = new Set([...tecnicos, ...rodape, ...EXCECOES_RODAPE]);
 
 let falhas = 0;
 const linhasRel = [];

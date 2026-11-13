@@ -114,7 +114,7 @@ a {
   position: absolute;
   inset: 0;
   z-index: -2;
-  background: url('../assets/fundo/bg-black.avif?v=202611131539') center top / cover no-repeat;
+  background: url('../assets/fundo/bg-black.avif?v=202611131547') center top / cover no-repeat;
   opacity: .9;
 }
 
@@ -135,17 +135,25 @@ a {
   background: var(--linha);
 }
 
-/* Entrada da hero/obrigado: sobe com opacidade, uma vez */
+/* Entrada da hero/obrigado, uma vez.
+   .entra (títulos, que são o LCP): só desloca, nunca começa invisível.
+   .entra-surge (cartão do formulário e textos do obrigado): sobe com opacidade, sem atraso, pronto em 400 ms. */
 @media (prefers-reduced-motion: no-preference) {
   .entra {
-    animation: entra .8s var(--ease) both;
+    animation: entra .6s var(--ease) both;
   }
 
-  .entra--2 { animation-delay: .12s; }
-  .entra--3 { animation-delay: .24s; }
+  .entra-surge {
+    animation: entra-surge .4s var(--ease) both;
+  }
 
   @keyframes entra {
-    from { opacity: 0; transform: translateY(2.4rem); }
+    from { transform: translateY(2.4rem); }
+    to   { transform: none; }
+  }
+
+  @keyframes entra-surge {
+    from { opacity: 0; transform: translateY(1.6rem); }
     to   { opacity: 1; transform: none; }
   }
 }

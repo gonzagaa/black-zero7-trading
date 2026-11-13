@@ -67,9 +67,22 @@ footer div.redes-sociais .icons {
   align-items: center;
 }
 
+/* área de toque de 44 × 44 px em todas as larguras; o ícone continua com o tamanho do site */
 footer div.redes-sociais a {
   text-decoration: none;
   display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+/* no mobile, a área de toque sobra 12 px de cada lado do ícone: o primeiro ícone continua alinhado ao texto */
+@media (max-width: 1079px) {
+  footer div.redes-sociais .icons {
+    gap: 0;
+    margin-left: -12px;
+  }
 }
 
 /* no site: ion-icon { color: #d2d2d2; font-size: 2rem } */

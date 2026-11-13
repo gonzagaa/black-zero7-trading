@@ -1,9 +1,9 @@
 // Formulário da hero: validação, estados, honeypot, envio e redirecionamento.
 // Regra de ouro (docs/rdstation.md): só vai para o obrigado depois do sucesso do envio.
 
-import { PAGINA_OBRIGADO } from './config.js?v=202611131539';
-import { enviarLead } from './rdstation.js?v=202611131539';
-import { guardarUtms } from './utm.js?v=202611131539';
+import { PAGINA_OBRIGADO } from './config.js?v=202611131547';
+import { enviarLead } from './rdstation.js?v=202611131547';
+import { guardarUtms } from './utm.js?v=202611131547';
 
 // Textos da tabela "Textos que a copy não traz" (docs/copy.md)
 const MSG = {
@@ -25,7 +25,7 @@ function iniciar(form) {
     nome: form.querySelector('#nome'),
     email: form.querySelector('#email'),
   };
-  const isca = form.querySelector('#website');
+  const isca = form.querySelector('#z7_campo_b');
   const botao = form.querySelector('button[type="submit"]');
   const rotulo = botao.querySelector('.z7-btnx__label');
   const rotuloOriginal = rotulo.textContent;
