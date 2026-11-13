@@ -1,0 +1,160 @@
+/* Página de obrigado. Base: Zero7-Internacional/css/obrigado.css. Ver docs/marca.md, "Página de obrigado". */
+
+.obrigado {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 8rem;
+  overflow: hidden;
+}
+
+.obrigado__corpo {
+  position: relative;
+  flex: 1;
+  width: min(70rem, 100%);
+  margin-inline: auto;
+  padding: 5.6rem 2.4rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  text-align: center;
+}
+
+/* luz verde atrás do título */
+.obrigado__corpo::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 20%;
+  width: 130%;
+  aspect-ratio: 1.6 / 1;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  background: radial-gradient(closest-side, rgba(16, 163, 106, .22), rgba(4, 4, 4, 0));
+  pointer-events: none;
+}
+
+.obrigado__titulo {
+  font-family: var(--ncs);
+  font-weight: 900;
+  text-transform: uppercase;
+  /* no site: clamp(5rem, 12vw, 11rem); aqui o mínimo é menor porque a Zalando Sans Expanded é larga e
+     "OBRIGADO!" não cabe a 50px em 360 px */
+  font-size: clamp(3.6rem, 10vw, 11rem);
+  line-height: 1;
+  letter-spacing: -.02em;
+  color: #fff;
+  text-shadow: 0 0 4rem rgba(255, 255, 255, .15);
+}
+
+.obrigado__subtitulo {
+  font-family: var(--ncs);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #fff;
+}
+
+.obrigado__descricao {
+  font-size: 1.7rem;
+  line-height: 1.6;
+  color: var(--text-2);
+  max-width: 60rem;
+}
+
+.canais {
+  width: 100%;
+  display: grid;
+  gap: 1.6rem;
+  margin-top: .8rem;
+  text-align: left;
+}
+
+.canal {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 1.4rem;
+  padding: 2.4rem 2rem;
+  background: rgba(255, 255, 255, .03);
+  border: 1px solid rgba(52, 211, 153, .25);
+  border-radius: var(--corte);
+  -webkit-backdrop-filter: blur(1.2rem);
+  backdrop-filter: blur(1.2rem);
+  font-size: 1.6rem;
+  line-height: 1.6;
+  color: var(--color-text);
+}
+
+.canal__icone {
+  flex: none;
+  width: 4.4rem;
+  height: 4.4rem;
+  display: grid;
+  place-items: center;
+  border-radius: 1.2rem 0 1.2rem 0;
+  background: linear-gradient(135deg, rgba(52, 211, 153, .22), rgba(11, 93, 59, .10));
+  border: 1px solid rgba(52, 211, 153, .3);
+}
+
+.canal__icone svg {
+  width: 2.2rem;
+  height: 2.2rem;
+  fill: none;
+  stroke: var(--z7-sky);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.canal a {
+  color: var(--neon);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: .3rem;
+  overflow-wrap: anywhere;
+}
+
+.canal a:hover {
+  color: #fff;
+}
+
+.canal__aviso {
+  display: block;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, .1);
+  color: var(--text-2);
+}
+
+.canal__aviso strong {
+  color: #fff;
+  font-weight: 700;
+}
+
+.obrigado__fecho {
+  margin-top: 1.2rem;
+  font-family: var(--ncs);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  color: #fff;
+}
+
+@media (min-width: 768px) {
+  .obrigado__corpo { padding-top: 7.2rem; gap: 2.4rem; }
+  .obrigado__subtitulo { font-size: 2.6rem; }
+  .obrigado__descricao { font-size: 1.8rem; }
+  /* os cartões passam um pouco dos 70rem do texto, para o e-mail caber numa linha */
+  .canais {
+    grid-template-columns: 1fr 1fr;
+    width: min(88rem, calc(100vw - 4.8rem));
+  }
+  .canal a { white-space: nowrap; }
+  .canal { padding: 2.8rem 2.4rem; }
+  .obrigado__fecho { font-size: 1.8rem; }
+}

@@ -1,0 +1,198 @@
+/* Dobra 3: rodapé. Cópia de Zero7-Internacional/css/footer.css + css/author.css (13/11/2026).
+   Diferenças, todas por causa da LP: ion-icon → svg inline; fonte do corpo Inter (o site usa TT Fors Trial);
+   foco visível nos links. Ver docs/marca.md, "As dobras > 3. Rodapé". */
+
+/* ===== footer.css ===== */
+
+footer {
+  background: var(--bg-black);
+  overflow: hidden;
+  position: relative;
+  padding-block: 8rem;
+}
+
+footer::before {
+  content: '';
+  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #ffffff5b, #cecece, #ffffff5b, transparent);
+}
+
+footer img.logo {
+  width: 15rem;
+  margin-bottom: 2rem;
+}
+
+footer .content {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  align-items: start;
+}
+
+footer div {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+footer .content h3 {
+  font-size: 1.6rem;
+  color: #ffffff;
+  font-family: var(--ncs);
+  text-transform: uppercase;
+  font-weight: 900;
+}
+
+footer .content p {
+  font-weight: 300;
+  font-size: 1.6rem;
+  color: #d2d2d2;
+}
+
+footer .content p a {
+  color: #d2d2d2;
+  text-decoration: none;
+}
+
+footer div.redes-sociais .icons {
+  display: flex;
+  gap: 1rem;
+  flex-direction: row;
+  align-items: center;
+}
+
+footer div.redes-sociais a {
+  text-decoration: none;
+  display: inline-flex;
+}
+
+/* no site: ion-icon { color: #d2d2d2; font-size: 2rem } */
+footer .redes-sociais svg {
+  width: 2rem;
+  height: 2rem;
+  fill: #d2d2d2;
+  box-sizing: content-box;
+}
+
+footer a:focus-visible {
+  outline: .2rem solid var(--z7-sky);
+  outline-offset: .3rem;
+  border-radius: .2rem;
+}
+
+@media (min-width: 1080px) {
+  footer#footer img.logo {
+    margin-bottom: 0;
+  }
+
+  footer#footer .wrapper .content {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    align-content: center;
+    justify-items: center;
+    gap: 10rem;
+  }
+
+  footer#footer .wrapper div {
+    gap: 1rem;
+  }
+
+  footer#footer .wrapper div.redes-sociais {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    text-align: end;
+  }
+
+  footer#footer a {
+    transition: all 200ms ease-in-out;
+  }
+
+  footer#footer a:hover {
+    color: #fff;
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+
+  footer#footer .redes-sociais svg {
+    width: 3rem;
+    height: 3rem;
+    transition: all 400ms ease-in-out;
+    border-radius: 50%;
+    padding: .8rem;
+  }
+
+  footer#footer div.redes-sociais .icons {
+    gap: .5rem;
+  }
+
+  footer#footer .redes-sociais a:hover svg {
+    background: var(--gradient);
+    fill: #040404;
+  }
+}
+
+/* ===== author.css ===== */
+
+#author {
+  background: linear-gradient(to bottom, #161616, #050505);
+  padding-block: 2rem;
+  padding-bottom: 10rem;
+}
+
+#author .content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: left;
+  align-items: start;
+}
+
+#author p,
+#author a {
+  color: #fff;
+  font-size: 1.2rem;
+  text-decoration: none;
+}
+
+#author p.disclaimer {
+  font-size: 1rem;
+  text-align: center;
+  margin-top: 2rem;
+  color: #c6c6c6;
+  font-weight: 300;
+}
+
+@media (min-width: 1080px) {
+  section#author {
+    padding-bottom: initial;
+    padding-block: 2rem;
+  }
+
+  section#author .content {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+    gap: 0;
+  }
+
+  section#author .content p {
+    width: 100%;
+    text-align: center;
+  }
+
+  section#author .content p:nth-child(1) {
+    text-align: left;
+  }
+
+  section#author .content p:nth-child(5) {
+    text-align: right;
+  }
+}
