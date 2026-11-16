@@ -1,7 +1,7 @@
 // Dobra "Traders Zero7 recebendo em Dólar": monta as molduras dos comprovantes.
 // Para trocar as imagens, edite só a lista abaixo (arquivos em assets/comprovantes/, ver o LEIA-ME de lá).
 
-const VERSAO = '202611160930'; // cache busting das imagens (atualizado por scripts/versao.mjs)
+const VERSAO = '202611161618'; // cache busting das imagens (atualizado por scripts/versao.mjs)
 
 /**
  * Fileira de cima em retrato (altura 372 px no desktop), de baixo em paisagem (300 px); a largura acompanha a imagem.
@@ -9,7 +9,16 @@ const VERSAO = '202611160930'; // cache busting das imagens (atualizado por scri
  * Exemplo: { arquivo: '01.webp', largura: 720, altura: 1280 }
  * Enquanto a lista estiver vazia, a dobra mostra molduras vazias (pendência 3 do CLAUDE.md).
  */
-export const COMPROVANTES = [];
+export const COMPROVANTES = [
+  { arquivo: '01.webp', largura: 900, altura: 900 },
+  { arquivo: '02.webp', largura: 900, altura: 900 },
+  { arquivo: '03.webp', largura: 900, altura: 900 },
+  { arquivo: '04.webp', largura: 900, altura: 900 },
+  { arquivo: '05.webp', largura: 900, altura: 900 },
+  { arquivo: '06.webp', largura: 900, altura: 900 },
+  { arquivo: '07.webp', largura: 900, altura: 900 },
+  { arquivo: '08.webp', largura: 900, altura: 900 },
+];
 
 const ALT = 'Comprovante de pagamento a trader Zero7'; // docs/copy.md, "Textos que a copy não traz"
 const PASTA = 'assets/comprovantes/';
