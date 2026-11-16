@@ -59,6 +59,7 @@ Siga o padrão de `api/capi.js`: Node nativo, sem dependências, mesmo tratament
       "name": "...",
       "email": "...",
       "mobile_phone": "...",
+      "phone": "<o mesmo valor de mobile_phone>",
       "traffic_source": "<utm_source>",
       "traffic_medium": "<utm_medium>",
       "traffic_campaign": "<utm_campaign>",
