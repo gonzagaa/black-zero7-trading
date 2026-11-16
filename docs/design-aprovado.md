@@ -6,7 +6,7 @@ O Gustavo reprovou o visual da Fase 1 ("genérico, sem graça, sem textura") e a
 
 - `_referencia/prototipo/lp.html` e `_referencia/prototipo/obrigado.html`: abra no navegador. O CSS dentro deles traz os valores exatos aprovados (cores, opacidades, raios, sombras, tamanhos).
 - É protótipo de **desktop** (1440 px). O celular não foi desenhado: você adapta, mantendo as mesmas camadas e a mesma hierarquia.
-- O protótipo carrega as fontes do Google e usa `assets/fundo/grao.png`. Na página real as fontes continuam locais, e o grão pode virar WebP ou um SVG de ruído, desde que o resultado visual seja o mesmo.
+- O protótipo carrega as fontes do Google e usa `_referencia/prototipo/grao.png`. Na página real as fontes continuam locais, e o grão pode virar WebP ou um SVG de ruído, desde que o resultado visual seja o mesmo.
 - O formulário e o botão do protótipo são só desenho. A lógica da Fase 1 (validação, estados, envio, honeypot, UTMs) fica como está.
 
 ## O que foi recusado (não volte com nada disto)
