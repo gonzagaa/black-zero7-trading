@@ -1,9 +1,9 @@
 // Formulário da hero: validação, estados, honeypot, envio e redirecionamento.
 // Regra principal (docs/rdstation.md): só vai para o obrigado depois do sucesso do envio.
 
-import { PAGINA_OBRIGADO } from './config.js?v=202611160834';
-import { enviarLead } from './rdstation.js?v=202611160834';
-import { guardarUtms } from './utm.js?v=202611160834';
+import { PAGINA_OBRIGADO } from './config.js?v=202611160930';
+import { enviarLead } from './rdstation.js?v=202611160930';
+import { guardarUtms } from './utm.js?v=202611160930';
 
 // Textos da tabela "Textos que a copy não traz" (docs/copy.md)
 const MSG = {

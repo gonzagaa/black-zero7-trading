@@ -1,6 +1,17 @@
 /* Página de obrigado. Valores do protótipo aprovado (_referencia/prototipo/obrigado.html, .obg).
    Fundo em camadas: .cena em css/base.css. */
 
+/* logo do topo: centralizada e menor que na LP */
+.obrigado .topo__logo {
+  display: block;
+  margin-inline: auto;
+  width: 9.6rem;
+}
+
+@media (min-width: 768px) {
+  .obrigado .topo__logo { width: 11rem; }
+}
+
 .obrigado__corpo {
   display: flex;
   flex-direction: column;
