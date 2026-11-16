@@ -1,9 +1,9 @@
 // Formulário da hero: validação, estados, honeypot, envio e redirecionamento.
 // Regra principal (docs/rdstation.md): só vai para o obrigado depois do sucesso do envio.
 
-import { PAGINA_OBRIGADO } from './config.js?v=202611160812';
-import { enviarLead } from './rdstation.js?v=202611160812';
-import { guardarUtms } from './utm.js?v=202611160812';
+import { PAGINA_OBRIGADO } from './config.js?v=202611160834';
+import { enviarLead } from './rdstation.js?v=202611160834';
+import { guardarUtms } from './utm.js?v=202611160834';
 
 // Textos da tabela "Textos que a copy não traz" (docs/copy.md)
 const MSG = {
@@ -16,9 +16,12 @@ const MSG = {
 
 const RE_EMAIL = /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)*\.[^\s@.]{2,}$/;
 
-// Telefone: de 10 a 15 dígitos depois de tirar espaços, parênteses, hífen e "+" (docs/fases.md, Fase 2). Sem máscara.
+// Telefone: igual à função /api/lead — tira tudo que não é dígito e aceita de 10 a 15 dígitos
+// ("62.99999.0000" vale; o "+" do começo vale e a função o mantém). Com letra, é inválido. Sem máscara.
 function telefoneValido(valor) {
-  return /^\d{10,15}$/.test(valor.replace(/[\s()+-]/g, ''));
+  if (/\p{L}/u.test(valor)) return false;
+  const digitos = valor.replace(/\D/g, '').length;
+  return digitos >= 10 && digitos <= 15;
 }
 
 guardarUtms();
@@ -114,11 +117,18 @@ function iniciar(form) {
       return;
     }
 
-    // Medição (GTM): só o nome do evento. Nenhum dado pessoal vai para o dataLayer.
+    // Medição (GTM): só o nome do evento, sem dado pessoal. O GTM chama eventCallback quando as tags do evento
+    // terminam (ou depois de eventTimeout). Se o GTM nem carregou, ninguém chama o callback: o setTimeout garante a
+    // ida para o obrigado em até 2 s. A trava impede o redirecionamento duplo.
+    let redirecionou = false;
+    const irParaObrigado = () => {
+      if (redirecionou) return;
+      redirecionou = true;
+      window.location.assign(PAGINA_OBRIGADO);
+    };
     window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ event: 'lead_black_trading' });
-
-    window.location.assign(PAGINA_OBRIGADO);
+    window.dataLayer.push({ event: 'lead_black_trading', eventCallback: irParaObrigado, eventTimeout: 2000 });
+    setTimeout(irParaObrigado, 2000);
   });
 
   // Voltar do obrigado pelo histórico (bfcache): o botão não pode ficar preso em "ENVIANDO..."
