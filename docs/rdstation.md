@@ -40,11 +40,11 @@ Siga o padrão de `api/capi.js`: Node nativo, sem dependências, mesmo tratament
 - Só `POST`; `OPTIONS` responde ao preflight; outro método → `405`.
 - `Origin` validado contra a variável que já existe, `ALLOWED_ORIGINS`. Origem fora da lista → `403`, sem `*`.
 - Corpo JSON, até 4 KB:
-  - `nome`: obrigatório, 2 a 120 caracteres depois de `trim`.
+  - `nome`: obrigatório, 1 a 120 caracteres depois de `trim`.
   - `email`: obrigatório, formato de e-mail, até 254 caracteres.
   - `telefone`: obrigatório, de 10 a 15 dígitos depois de tirar tudo que não é dígito (guarde só os dígitos, com `+` na frente se veio com `+`).
-  - `utm_source`, `utm_medium`, `utm_campaign`, `utm_term`, `utm_content`: opcionais, até 200 caracteres cada.
-  - Qualquer falha → `400 { "error": "invalid input" }`, sem dizer qual campo nem ecoar valores.
+  - `utm_source`, `utm_medium`, `utm_campaign`, `utm_term`, `utm_content`: opcionais, e nunca recusam o lead. Acima de 200 caracteres, são cortadas em 200. Valor que não é texto é ignorado (a UTM não vai, o lead segue).
+  - Qualquer falha em `nome`, `email` ou `telefone` → `400 { "error": "invalid input" }`, sem dizer qual campo nem ecoar valores.
 - O campo-isca (honeypot) é tratado só na página e não chega à função.
 
 **Saída para a RD**
@@ -68,6 +68,7 @@ Siga o padrão de `api/capi.js`: Node nativo, sem dependências, mesmo tratament
   ```
 - O identificador é **fixo na função**, nunca vem da página (impede que alguém use a rota para gravar outras conversões na conta).
 - Campos de UTM vazios não vão no payload.
+- `utm_content` é aceito pela função, mas não vai para a RD: a API de conversões não tem campo para ele.
 - **Antes de implementar, confirme os nomes dos campos do `payload`** (`name`, `email`, `mobile_phone`, `traffic_*`, `legal_bases`) na referência oficial da RD (`developers.rdstation.com`, página "Conversão via API Key"; o índice `developers.rdstation.com/llms.txt` ajuda). O formato acima foi confirmado só até `event_type`, `event_family` e `payload`; os campos internos vieram de memória.
 
 **Respostas da função**
