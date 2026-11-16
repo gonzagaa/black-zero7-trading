@@ -140,7 +140,7 @@ a {
 
 .l07 {
   z-index: 0;
-  background: url('../assets/fundo/bg-black.avif?v=202611161629') center / cover no-repeat;
+  background: url('../assets/fundo/bg-black.avif?v=202611161646') center / cover no-repeat;
   filter: brightness(1.45) contrast(1.1);
 }
 
@@ -254,6 +254,16 @@ a {
   inset: -5px;
   border-radius: 50%;
   border: 1px solid var(--neon);
+}
+
+/* "ao vivo" da data da LP: o vermelho do selo AO VIVO do YouTube */
+.ponto--ao-vivo {
+  background: #ff0000;
+  box-shadow: 0 0 12px rgba(255, 0, 0, .7);
+}
+
+.ponto--ao-vivo::after {
+  border-color: #ff0000;
 }
 
 @media (prefers-reduced-motion: no-preference) {
