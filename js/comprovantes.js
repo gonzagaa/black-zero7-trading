@@ -1,7 +1,7 @@
 // Dobra "Traders Zero7 recebendo em Dólar": monta as molduras dos comprovantes.
 // Para trocar as imagens, edite só a lista abaixo (arquivos em assets/comprovantes/, ver o LEIA-ME de lá).
 
-const VERSAO = '202611161629'; // cache busting das imagens (atualizado por scripts/versao.mjs)
+const VERSAO = '202611161634'; // cache busting das imagens (atualizado por scripts/versao.mjs)
 
 /**
  * Fileira de cima em retrato (altura 372 px no desktop), de baixo em paisagem (300 px); a largura acompanha a imagem.
