@@ -51,5 +51,17 @@ Camadas, de baixo para cima:
 - Dois cartões de vidro iguais ao do formulário, conteúdo centralizado na vertical. O aviso do WhatsApp fica numa caixa escura com borda fina, bem legível.
 - O fecho usa a mesma pílula da data.
 
+### Bandeira dos EUA na hero (aprovada em 16/11/2026)
+
+O Gustavo pediu uma bandeira dos EUA no fundo da hero, "discreta, sofisticada, só numa parte", e aprovou a versão **em preto e branco**. A versão em cor lavada foi recusada.
+
+- **Referência:** `_referencia/prototipo/hero-bandeira.html` (abra no navegador; o CSS da camada `.lband` e da `.lluz` nova está lá).
+- **Imagem:** `assets/fundo/bandeira-eua-2000.webp` (desktop) e `assets/fundo/bandeira-eua-1000.webp` (celular). Tecido ondulando, em tons de cinza, com o contraste já aplicado: não use `filter` em CSS. Foi desenhada em código pelo Claude, então não tem direito de imagem de terceiros.
+- **Onde:** só na hero, só do lado direito. As estrelas ficam no alto, atrás e acima do cartão do formulário; as listras saem pela borda direita e somem no preto. Nunca atrás do título nem do texto da esquerda.
+- **Camada:** logo acima do "07" em relevo e abaixo das luzes, pontos, arcos, vinheta e grão. Opacidade .36, máscara radial que some para a esquerda e para baixo.
+- **Luz verde:** com a bandeira, a luz verde da hero fica só atrás do cartão e mais fraca (ver `.lluz` na referência), para não tingir o tecido.
+- **Celular e tablet (abaixo de 1080 px):** use a de 1000 px, atrás do alto da hero (acima do formulário, nunca atrás dos campos), mais apagada (por volta de .22) e sumindo para baixo. O título continua 100% legível.
+- **Página de obrigado:** sem bandeira, a não ser que o Gustavo peça.
+
 ## O que não muda
 Copy, estrutura das dobras, rodapé, acessibilidade, desempenho e tudo o que é comportamento. As metas da Fase 1 (LCP, CLS, sem rolagem horizontal, movimento reduzido) continuam valendo com o fundo novo.

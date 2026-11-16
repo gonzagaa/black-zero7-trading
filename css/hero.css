@@ -1,6 +1,53 @@
 /* Dobra 1: hero com o formulário. Valores do protótipo aprovado (_referencia/prototipo/lp.html).
    Fundo em camadas: .cena em css/base.css. */
 
+/* ---------- Bandeira dos EUA (docs/design-aprovado.md; referência: _referencia/prototipo/hero-bandeira.html) ----------
+   Só na LP. Fica logo acima do "07" (mesmo z-index, vem depois no HTML) e abaixo das luzes, pontos, arcos,
+   vinheta e grão. A imagem já vem em preto e branco com o contraste aplicado: nada de filter aqui. */
+.lband {
+  z-index: 0;
+  inset: 0 0 auto auto;
+  width: 100%;
+  height: 42rem;               /* celular: some antes do cartão (que começa em ~42 rem) */
+  background: url('../assets/fundo/bandeira-eua-1000.webp?v=202611161651') 0% 30% / cover no-repeat;
+  -webkit-mask-image: linear-gradient(#000 0%, rgba(0, 0, 0, .7) 35%, transparent 100%);
+          mask-image: linear-gradient(#000 0%, rgba(0, 0, 0, .7) 35%, transparent 100%);
+  opacity: .22;
+}
+
+@media (min-width: 768px) {
+  .lband { height: 54rem; }    /* tablet: o cartão começa em ~54 rem */
+}
+
+@media (min-width: 1080px) {
+  .lband {
+    inset: -8% -3% auto auto;
+    width: 60%;
+    height: 104%;
+    background: url('../assets/fundo/bandeira-eua-2000.webp?v=202611161651') 8% 40% / cover no-repeat;
+    -webkit-mask-image:
+      radial-gradient(72% 70% at 64% 44%, #000 0%, #000 30%, rgba(0, 0, 0, .55) 56%, transparent 80%),
+      linear-gradient(90deg, transparent 0%, #000 26%);
+    -webkit-mask-composite: source-in;
+            mask-image:
+      radial-gradient(72% 70% at 64% 44%, #000 0%, #000 30%, rgba(0, 0, 0, .55) 56%, transparent 80%),
+      linear-gradient(90deg, transparent 0%, #000 26%);
+            mask-composite: intersect;
+    opacity: .36;
+  }
+
+  /* luz atrás do cartão (posição da referência) */
+  .hero.cena { --luz-x: 72%; --luz-y: 50%; }
+}
+
+/* com a bandeira, a luz verde fica só atrás do cartão e mais fraca, para não tingir o tecido (referência, .lluz).
+   No celular a posição vem das variáveis de .cena (atrás do cartão, embaixo do texto). */
+.hero .lluz {
+  background:
+    radial-gradient(30% 34% at var(--luz-x) var(--luz-y), rgba(16, 163, 106, .20), transparent 72%),
+    radial-gradient(60% 40% at 50% 0%, rgba(11, 93, 59, .18), transparent 75%);
+}
+
 .hero__grade {
   display: grid;
   gap: 3.2rem;
