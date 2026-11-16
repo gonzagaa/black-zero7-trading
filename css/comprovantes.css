@@ -135,7 +135,7 @@
   .esteira { --esc: 1; --gap: 2.6rem; }
 }
 
-/* Movimento contínuo e lento, uma fileira para cada lado; pausa no mouse ou no toque */
+/* Movimento contínuo e lento, uma fileira para cada lado; não para com o mouse em cima, só enquanto o dedo está na esteira */
 @media (prefers-reduced-motion: no-preference) {
   .esteira__trilho {
     animation: esteira-esq 46s linear infinite;
@@ -145,7 +145,6 @@
     animation: esteira-dir 54s linear infinite;
   }
 
-  .esteira:hover .esteira__trilho,
   .esteira.is-pausada .esteira__trilho {
     animation-play-state: paused;
   }

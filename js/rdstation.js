@@ -2,8 +2,8 @@
 //
 // A página não fala com a RD: manda o lead para a função /api/lead (Vercel), que guarda a chave e registra a conversão.
 
-import { RD } from './config.js?v=202611161618';
-import { lerUtms } from './utm.js?v=202611161618';
+import { RD } from './config.js?v=202611161629';
+import { lerUtms } from './utm.js?v=202611161629';
 
 const esperar = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const UTMS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];

@@ -1,7 +1,7 @@
 // Dobra "Traders Zero7 recebendo em Dólar": monta as molduras dos comprovantes.
 // Para trocar as imagens, edite só a lista abaixo (arquivos em assets/comprovantes/, ver o LEIA-ME de lá).
 
-const VERSAO = '202611161618'; // cache busting das imagens (atualizado por scripts/versao.mjs)
+const VERSAO = '202611161629'; // cache busting das imagens (atualizado por scripts/versao.mjs)
 
 /**
  * Fileira de cima em retrato (altura 372 px no desktop), de baixo em paisagem (300 px); a largura acompanha a imagem.
@@ -112,7 +112,7 @@ function montar(raiz, parado) {
   raiz.appendChild(fileira(baixo.length ? baixo : cima, 'dir', false));
 }
 
-// Pausa enquanto o dedo estiver na esteira (no mouse, o :hover do CSS já pausa)
+// Pausa só enquanto o dedo estiver na esteira (com o mouse em cima, ela continua andando)
 function pausaNoToque(raiz) {
   const pausar = (e) => { if (e.pointerType !== 'mouse') raiz.classList.add('is-pausada'); };
   const soltar = () => raiz.classList.remove('is-pausada');
