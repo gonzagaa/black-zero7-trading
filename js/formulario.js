@@ -1,19 +1,25 @@
 // Formulário da hero: validação, estados, honeypot, envio e redirecionamento.
 // Regra principal (docs/rdstation.md): só vai para o obrigado depois do sucesso do envio.
 
-import { PAGINA_OBRIGADO } from './config.js?v=202611160750';
-import { enviarLead } from './rdstation.js?v=202611160750';
-import { guardarUtms } from './utm.js?v=202611160750';
+import { PAGINA_OBRIGADO } from './config.js?v=202611160812';
+import { enviarLead } from './rdstation.js?v=202611160812';
+import { guardarUtms } from './utm.js?v=202611160812';
 
 // Textos da tabela "Textos que a copy não traz" (docs/copy.md)
 const MSG = {
   vazio: 'Preencha este campo.',
   email: 'Digite um e-mail válido.',
+  telefone: 'Digite um telefone válido.',
   envio: 'Não foi possível enviar agora. Tente de novo.',
   enviando: 'ENVIANDO...',
 };
 
 const RE_EMAIL = /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)*\.[^\s@.]{2,}$/;
+
+// Telefone: de 10 a 15 dígitos depois de tirar espaços, parênteses, hífen e "+" (docs/fases.md, Fase 2). Sem máscara.
+function telefoneValido(valor) {
+  return /^\d{10,15}$/.test(valor.replace(/[\s()+-]/g, ''));
+}
 
 guardarUtms();
 
@@ -24,6 +30,7 @@ function iniciar(form) {
   const campos = {
     nome: form.querySelector('#nome'),
     email: form.querySelector('#email'),
+    telefone: form.querySelector('#telefone'),
   };
   const isca = form.querySelector('#z7_campo_b');
   const botao = form.querySelector('button[type="submit"]');
@@ -38,6 +45,7 @@ function iniciar(form) {
     let erro = '';
     if (!valor) erro = MSG.vazio;
     else if (nomeCampo === 'email' && !RE_EMAIL.test(valor)) erro = MSG.email;
+    else if (nomeCampo === 'telefone' && !telefoneValido(valor)) erro = MSG.telefone;
     mostrarErro(input, erro);
     return !erro;
   }
@@ -77,10 +85,10 @@ function iniciar(form) {
     if (enviando) return;
     erroEnvio.textContent = '';
 
-    const nomeOk = validar('nome');
-    const emailOk = validar('email');
-    if (!nomeOk || !emailOk) {
-      (nomeOk ? campos.email : campos.nome).focus();
+    // valida todos (para mostrar todos os erros) e põe o foco no primeiro inválido
+    const invalidos = Object.keys(campos).filter((nomeCampo) => !validar(nomeCampo));
+    if (invalidos.length) {
+      campos[invalidos[0]].focus();
       return;
     }
 
@@ -96,6 +104,7 @@ function iniciar(form) {
       await enviarLead({
         nome: campos.nome.value.trim(),
         email: campos.email.value.trim(),
+        telefone: campos.telefone.value.trim(),
       });
     } catch (erro) {
       // Sem dado pessoal: só a mensagem técnica do módulo da RD
@@ -104,6 +113,10 @@ function iniciar(form) {
       erroEnvio.textContent = MSG.envio;
       return;
     }
+
+    // Medição (GTM): só o nome do evento. Nenhum dado pessoal vai para o dataLayer.
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: 'lead_black_trading' });
 
     window.location.assign(PAGINA_OBRIGADO);
   });

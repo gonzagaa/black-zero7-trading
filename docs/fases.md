@@ -64,22 +64,30 @@ Faça **somente a fase pedida**. Ao terminar, escreva o relatório em `relatorio
 
 ---
 
-## Fase 2 — RD Station, medição e publicação
+## Fase 2 — Campo Telefone, RD Station, medição e preparo da publicação
 
-**Só começa depois que `docs/rdstation.md` tiver a seção "A confirmar na conta" preenchida.** Se ela ainda estiver em branco, pare e avise.
+**Leia antes:** `docs/rdstation.md` inteiro (foi reescrito em 16/11), `docs/copy.md` (campo Telefone novo) e `../Zero7-Internacional/backend/` (README e `api/capi.js`, que é o padrão a seguir).
 
 **Entregar:**
 
-1. `js/rdstation.js` em modo real, seguindo as regras de `docs/rdstation.md`.
-2. Medição:
+1. **Campo Telefone** no formulário, depois do E-mail, com o rótulo e o erro de `docs/copy.md`. `type="tel"`, `inputmode="tel"`, `autocomplete="tel"`. Válido = de 10 a 15 dígitos depois de tirar espaços, parênteses, hífen e `+`. Sem máscara que atrapalhe colar ou digitar número de fora. O formulário continua cabendo: em 390 × 844 o botão ainda aparece sem rolar muito (se não couber, diga quanto passou, não encolha nada sem perguntar).
+2. **Função `/api/lead`** em `../Zero7-Internacional/backend/api/lead.js`, exatamente como especificado em `docs/rdstation.md`. Atualize `backend/README.md` e `backend/.env.example` (só nomes, nenhum valor). Não mexa em `capi.js` nem em nada mais daquele repositório.
+3. **Front em modo real:** `js/rdstation.js` chama `/api/lead` (URL em `js/config.js`). Some com `chavePublica` do config. O modo simulado continua existindo para desenvolvimento.
+4. **Medição:**
    - GTM `GTM-NLVJR569` (o mesmo do site), com o `noscript` logo depois do `<body>`.
-   - No sucesso do envio, antes de redirecionar: `dataLayer.push({ event: 'lead_black_trading' })`. Nenhum dado pessoal (nome, e-mail) vai para o dataLayer nem para a URL.
-   - Hotjar e Zendesk não entram, a não ser que o Gustavo peça.
-3. Selo do Reclame Aqui no rodapé (`#ra-verified-seal`), com o mesmo script do site (terceiro permitido):
+   - No sucesso do envio, antes de redirecionar: `dataLayer.push({ event: 'lead_black_trading' })`. Nenhum dado pessoal vai para o dataLayer nem para a URL.
+   - Hotjar e Zendesk não entram.
+5. **Selo do Reclame Aqui** no rodapé (`#ra-verified-seal`), com o mesmo script do site (terceiro permitido):
    `<script type="text/javascript" id="ra-embed-verified-seal" src="https://s3.amazonaws.com/raichu-beta/ra-verified/bundle.js" data-id="WDRYanlCUWlyT0xFUTFZeDp6ZXJvNy10ZXNvdXJhcmlh" data-target="ra-verified-seal" data-model="2"></script>`
-4. `canonical`, `og:*` e `og:image` com URL absoluta, depois que o endereço de publicação for confirmado.
-5. Teste de ponta a ponta com um lead de teste (ver a lista em `docs/rdstation.md`) e a evidência no relatório.
-6. Roteiro de publicação, passo a passo, no relatório. **Não publique nada por conta própria.**
+6. **Endereço:** `canonical` e `og:url` = `https://zero7trading.com/black-2026/`; `og:image` com URL absoluta nesse endereço (se não houver imagem de compartilhamento, pergunte; não invente uma).
+7. **Testes da função sem a chave real:** origem não autorizada → 403; método errado → 405; corpo inválido → 400; sem `RD_API_KEY` → 500 sem vazar nada. Mostre os comandos e as respostas no relatório.
+8. **Roteiro no relatório**, passo a passo, para o Gustavo: (a) criar a Chave de API na RD e colocar na Vercel; (b) deploy do backend; (c) teste de ponta a ponta com um lead de teste (que você roda só depois que ele avisar que a chave está na Vercel); (d) subir a pasta da LP para `/black-2026/` no servidor do site, com a lista exata do que sobe e do que não sobe. **Não publique nada por conta própria.**
+
+**Aceite:**
+- Conferência da copy sem diferença (com "Telefone:" e o erro novo).
+- Função: os testes do item 7 passam; nenhum log com dado pessoal ou com a chave.
+- Front: com a função fora do ar ou devolvendo erro, a página mostra o erro de envio e mantém os campos preenchidos; só vai para o obrigado com resposta de sucesso.
+- Console sem erros, rede sem 404, sem rolagem horizontal nas 7 larguras.
 
 ---
 

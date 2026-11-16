@@ -25,6 +25,9 @@ Cadastre-se para receber a oferta.
 **Campos do formulário (rótulos):**
 - Nome:
 - E-mail:
+- Telefone:
+
+*(instrução)* "Telefone:" entrou na copy revisada de 16/11/2026 (PDF "LP de captação Black Friday Internacional"). É o WhatsApp citado na página de obrigado.
 
 **Botão:**
 QUERO RECEBER A OFERTA
@@ -73,6 +76,7 @@ Só estes podem existir além da copy, porque a página não funciona sem eles. 
 | `<title>` do obrigado | Obrigado! — Black Zero7 Trading | aba do navegador |
 | Erro de campo vazio | Preencha este campo. | validação |
 | Erro de e-mail inválido | Digite um e-mail válido. | validação |
+| Erro de telefone inválido | Digite um telefone válido. | validação (entrou em 16/11, com o campo Telefone) |
 | Erro de envio | Não foi possível enviar agora. Tente de novo. | falha de rede |
 | Botão enquanto envia | ENVIANDO... | evita duplo clique |
 | `alt` das imagens dos comprovantes | Comprovante de pagamento a trader Zero7 | acessibilidade |
