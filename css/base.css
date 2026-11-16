@@ -140,7 +140,7 @@ a {
 
 .l07 {
   z-index: 0;
-  background: url('../assets/fundo/bg-black.avif?v=202611131609') center / cover no-repeat;
+  background: url('../assets/fundo/bg-black.avif?v=202611160750') center / cover no-repeat;
   filter: brightness(1.45) contrast(1.1);
 }
 
@@ -231,6 +231,11 @@ a {
   border: 1px solid rgba(255, 255, 255, .16);
   -webkit-backdrop-filter: blur(8px);
           backdrop-filter: blur(8px);
+}
+
+/* trecho da data que não quebra: na pílula, a quebra cai antes dele (depois de "AO VIVO -") */
+.sem-quebra {
+  white-space: nowrap;
 }
 
 .ponto {
