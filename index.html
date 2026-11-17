@@ -184,5 +184,132 @@
         e a fonte de dados são fornecidas por terceiros.</p>
     </div>
   </section>
+
+<!-- Captação de lead 4Selet — envia em paralelo à RD. Não interfere no fluxo da página. -->
+<script>
+(function () {
+  "use strict";
+
+  var CONFIG = {
+    endpoint: "https://crmv2.4st.co/api/webhooks/lp/capture",
+    chave: "pk_lp_e3db65052a200608459bd7578eca82d316125f40",
+    formulario: "#form-lead",
+    campos: { name: "#nome", email: "#email", phone: "#telefone" },
+    isca: "#z7_campo_b",
+    teste: false
+  };
+
+  var form = document.querySelector(CONFIG.formulario);
+  if (!form) return;
+  function achar(s) { return form.querySelector(s) || document.querySelector(s); }
+
+  var CHAVE_SESSAO = "lp4s_sid";
+  function novoId() { return "lp_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 10); }
+  function idDaSessao() {
+    try {
+      var a = sessionStorage.getItem(CHAVE_SESSAO);
+      if (a) return a;
+      var n = novoId(); sessionStorage.setItem(CHAVE_SESSAO, n); return n;
+    } catch (e) { return novoId(); }
+  }
+
+  var UTMS = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
+  function origem() {
+    var o = {};
+    try {
+      var q = new URLSearchParams(window.location.search);
+      for (var i = 0; i < UTMS.length; i++) {
+        var n = UTMS[i], v = q.get(n);
+        if (!v) { try { v = sessionStorage.getItem(n); } catch (e) {} }
+        if (v) o[n] = String(v).slice(0, 200);
+      }
+      if (document.referrer) o.referrer = document.referrer.slice(0, 500);
+    } catch (e) {}
+    return o;
+  }
+
+  function valores() {
+    var o = {};
+    for (var c in CONFIG.campos) {
+      if (!Object.prototype.hasOwnProperty.call(CONFIG.campos, c)) continue;
+      var el = achar(CONFIG.campos[c]);
+      if (el && typeof el.value === "string" && el.value.trim()) o[c] = el.value.trim().slice(0, 300);
+    }
+    return o;
+  }
+  function temAlgo(o) { for (var k in o) { if (Object.prototype.hasOwnProperty.call(o, k)) return true; } return false; }
+  function ehRobo() {
+    try { var i = CONFIG.isca ? achar(CONFIG.isca) : null; return !!(i && typeof i.value === "string" && i.value.trim()); }
+    catch (e) { return false; }
+  }
+
+  var url = CONFIG.endpoint + "?k=" + encodeURIComponent(CONFIG.chave);
+
+  function enviar(corpo) {
+    if (ehRobo()) return;
+    corpo.session_id = idDaSessao();
+    corpo.page_url = window.location.href.slice(0, 2000);
+    corpo.user_agent = (navigator.userAgent || "").slice(0, 1000);
+    var a = origem(); if (temAlgo(a)) corpo.attribution = a;
+    var texto = JSON.stringify(corpo);
+    if (CONFIG.teste) { if (window.console && console.info) console.info("[LP->CRM] enviaria:", corpo); return; }
+    try {
+      if (navigator.sendBeacon) {
+        if (navigator.sendBeacon(url, new Blob([texto], { type: "text/plain" }))) return;
+      }
+      fetch(url, {
+        method: "POST", headers: { "Content-Type": "text/plain" }, body: texto,
+        keepalive: true, credentials: "omit", mode: "cors"
+      }).catch(function () {});
+    } catch (e) {}
+  }
+
+  var ultimoEnviado = "";
+  function parcial(uc) {
+    var c = valores(); if (!temAlgo(c)) return;
+    var imp = JSON.stringify(c) + "|" + (uc || "");
+    if (imp === ultimoEnviado) return;
+    ultimoEnviado = imp;
+    enviar({ type: "partial", last_step: uc || null, fields: c });
+  }
+
+  for (var campo in CONFIG.campos) {
+    if (!Object.prototype.hasOwnProperty.call(CONFIG.campos, campo)) continue;
+    (function (n) {
+      var el = achar(CONFIG.campos[n]); if (!el) return;
+      el.addEventListener("blur", function () { parcial(n); });
+      el.addEventListener("change", function () { parcial(n); });
+    })(campo);
+  }
+
+  var jaMandouSaida = false;
+  function naSaida() {
+    if (jaMandouSaida) return;
+    var c = valores(); if (!temAlgo(c)) return;
+    jaMandouSaida = true;
+    enviar({ type: "partial", last_step: "saiu", fields: c });
+  }
+  window.addEventListener("pagehide", naSaida);
+  document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState === "hidden") naSaida();
+  });
+
+  function pareceCompleto(c) {
+    if (!c.name || !c.email || !c.phone) return false;
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(c.email)) return false;
+    if (c.phone.replace(/\D/g, "").length < 10) return false;
+    return true;
+  }
+
+  form.addEventListener("submit", function () {
+    var c = valores(); if (!temAlgo(c)) return;
+    if (!pareceCompleto(c)) { parcial("tentou-enviar"); return; }
+    jaMandouSaida = true;
+    var b = { type: "submit", event_id: "evt_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 8) };
+    for (var k in c) { if (Object.prototype.hasOwnProperty.call(c, k)) b[k] = c[k]; }
+    enviar(b);
+  });
+})();
+</script>
 </body>
 </html>

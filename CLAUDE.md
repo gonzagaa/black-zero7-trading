@@ -39,9 +39,20 @@ HTML, CSS e JS puros. Sem framework e sem etapa de build.
 4. **Identidade.** Preto, verde da Zero7 Trading e corte diagonal. Nada do laranja da Black nacional e nada de dourado (recusado; ver `docs/design-aprovado.md`).
 5. **Nenhuma credencial no front nem em repositório.** A Chave de API da RD dá acesso total à conta: ela só existe na variável `RD_API_KEY` da Vercel, colocada pelo Gustavo. Nunca peça o valor, nunca o escreva em arquivo, log ou relatório. O token público antigo da RD também não é usado.
 6. **Dados pessoais.** Nome, e-mail e telefone nunca vão para a URL, para o dataLayer ou para o console em modo real, nem para os logs da função na Vercel.
-7. **Terceiros.** Nenhum script externo além dos listados em `docs/fases.md`.
+7. **Terceiros.** Nenhum script externo além dos listados em `docs/fases.md` e da captação da 4Selet (abaixo).
 8. **Caminhos relativos.** Nada começa com `/`.
 9. **Não publique.** Deploy é decisão do Gustavo.
+
+## Captação 4Selet (terceiro aprovado em 17/11/2026)
+
+O Gustavo aprovou o script de captação do CRM da 4Selet (Hugo), que manda os leads para `crmv2.4st.co` em paralelo à RD.
+
+- Fica só no `index.html`, logo antes de `</body>`, exatamente como a 4Selet entregou (`ENTREGA-dev-captacao-lp.md`). O obrigado não tem o bloco.
+- **Não altere o bloco sem falar com a 4Selet.** Endpoint, chave e domínios estão configurados do lado do CRM. Isso vale para `teste: false`, a linha `isca: "#z7_campo_b"` e os seletores dos campos (`#form-lead`, `#nome`, `#email`, `#telefone`): renomear qualquer um deles quebra a captação.
+- A chave `pk_lp_…` do bloco é pública de propósito (só envia lead, só a partir de `zero7trading.com` e `www.zero7trading.com`). É a única exceção à regra 5, aprovada junto com o script.
+- O bloco manda nome, e-mail e telefone à 4Selet também enquanto a pessoa preenche (`partial`), e não só no envio (`submit`). Com o campo-isca preenchido, não manda nada.
+- Ele não decide o redirecionamento: o obrigado continua dependendo só do sucesso do envio à RD (regra 3).
+- `localhost` não está liberado no CRM. Para testar local, use `teste: true` (só mostra no console o que enviaria) e volte para `false` antes do commit.
 
 ## Exceções aprovadas ao "mesmo rodapé do site"
 
