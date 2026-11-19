@@ -105,4 +105,17 @@ O LCP caiu ~0,9 s, o que fecha com a medição do relatório anterior (Pixel blo
 | `connect.facebook.net` (`fbevents.js` e config do Pixel) | carregou | não, só script e configuração |
 | **`www.google.com/g/collect`** | **204, 6 vezes (1 por rodada)** | **sim** |
 
-O `www.google.com/g/collect` é o hit duplicado que o GA4 manda para os Google Signals, e nenhum dos três padrões cobre esse endereço. A visita em si (`google-analytics.com`) foi bloqueada. Para as próximas rodadas, falta o padrão `*google.com/g/collect*`; não o acrescentei por conta própria.
+O `www.google.com/g/collect` é o hit duplicado que o GA4 manda para os Google Signals, e nenhum dos três padrões cobre esse endereço. A visita em si (`google-analytics.com`) foi bloqueada.
+
+### Bloqueio nas próximas rodadas
+
+Decidido na revisão do `f887d54` (19/11/2026). A partir das próximas rodadas de Lighthouse, o GTM e o Pixel continuam carregando, e os disparos são bloqueados com quatro padrões:
+
+```
+--blocked-url-patterns=*facebook.com/tr*
+--blocked-url-patterns=*google-analytics.com/g/collect*
+--blocked-url-patterns=*analytics.google.com*
+--blocked-url-patterns=*google.com/g/collect*
+```
+
+As 6 rodadas deste relatório foram feitas só com os três primeiros.
