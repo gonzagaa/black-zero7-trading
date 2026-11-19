@@ -1,11 +1,12 @@
 // Meta (Pixel + API de Conversões). Ver docs/meta.md.
 //
-// Ao carregar (LP e obrigado): garante os cookies _fbp/_fbc e o external_id anônimo, com a mesma lógica do
-// js/metaPixel.js do site; com META.pageview, carrega o Pixel e manda o PageView pelo navegador e pela /api/capi
-// (o mesmo event_id nos dois). Exporta dadosMeta() para o envio do formulário e iniciarPixel() para o obrigado.
+// Ao carregar o módulo (LP e obrigado): garante os cookies _fbp/_fbc e o external_id anônimo, com a mesma lógica do
+// js/metaPixel.js do site. Com META.pageview, depois do load da página (para o Pixel não disputar banda com a hero e
+// o LCP), carrega o Pixel e manda o PageView pelo navegador e pela /api/capi (o mesmo event_id nos dois).
+// Exporta dadosMeta() para o envio do formulário e iniciarPixel() para o obrigado, que o chama na hora.
 // Nada aqui pode quebrar a página: tudo em try/catch e falha silenciosa.
 
-import { META } from './config.js?v=202611181111';
+import { META } from './config.js?v=202611191511';
 
 const COOKIE_MAX_AGE = 90 * 24 * 60 * 60; // 90 dias, em segundos
 const LS_EXT_ID = 'zero7_ext_id';         // a mesma chave do site
@@ -129,21 +130,32 @@ try {
   cookies = { fbp: ensureFbp(), fbc: ensureFbc(), externalId: ensureExternalId() };
 } catch (_) { /* segue sem */ }
 
-if (META.pageview) {
-  // ordem do site: cookies primeiro, depois o Pixel (que reaproveita o _fbp), depois init/track
-  const eventId = newEventId();
-  if (iniciarPixel()) {
-    try { window.fbq('track', 'PageView', {}, { eventID: eventId }); } catch (_) { /* nada */ }
-  }
-  enviarCapi({
-    event_id: eventId,
-    event_name: 'PageView',
-    event_source_url: window.location.href,
-    fbp: cookies.fbp || undefined,
-    fbc: cookies.fbc || undefined,
-    external_id: cookies.externalId || undefined,
-  });
+// Roda fn depois do load da página (na hora, se o load já passou)
+function depoisDoLoad(fn) {
+  if (document.readyState === 'complete') fn();
+  else window.addEventListener('load', fn, { once: true });
 }
+
+function pageView() {
+  try {
+    // ordem do site: cookies primeiro (já feitos acima), depois o Pixel (que reaproveita o _fbp), depois init/track.
+    // No obrigado o init já pode ter saído com o CompleteRegistration: iniciarPixel() devolve true sem repetir.
+    const eventId = newEventId();
+    if (iniciarPixel()) {
+      try { window.fbq('track', 'PageView', {}, { eventID: eventId }); } catch (_) { /* nada */ }
+    }
+    enviarCapi({
+      event_id: eventId,
+      event_name: 'PageView',
+      event_source_url: window.location.href,
+      fbp: cookies.fbp || undefined,
+      fbc: cookies.fbc || undefined,
+      external_id: cookies.externalId || undefined,
+    });
+  } catch (_) { /* nada */ }
+}
+
+if (META.pageview) depoisDoLoad(pageView);
 
 // Para o envio do formulário: um event_id novo por tentativa e os identificadores do navegador.
 // Nunca lança: sem dados, devolve {} e o lead segue sem Meta.

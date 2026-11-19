@@ -1,7 +1,7 @@
 // Dobra "Traders Zero7 recebendo em Dólar": monta as molduras dos comprovantes.
 // Para trocar as imagens, edite só a lista abaixo (arquivos em assets/comprovantes/, ver o LEIA-ME de lá).
 
-const VERSAO = '202611181111'; // cache busting das imagens (atualizado por scripts/versao.mjs)
+const VERSAO = '202611191511'; // cache busting das imagens (atualizado por scripts/versao.mjs)
 
 /**
  * Fileira de cima em retrato (altura 372 px no desktop), de baixo em paisagem (300 px); a largura acompanha a imagem.
@@ -27,10 +27,20 @@ const MINIMO_POR_GRUPO = 8; // abaixo disso a fileira repete a lista, para a est
 
 const raiz = document.querySelector('[data-comprovantes]');
 if (raiz) {
-  const calmo = window.matchMedia('(prefers-reduced-motion: reduce)');
-  montar(raiz, calmo.matches);
-  calmo.addEventListener('change', (e) => montar(raiz, e.matches));
+  // As imagens só entram depois do load da página: assim não disputam banda com a hero (LCP). O loading="lazy"
+  // não bastava, porque a dobra fica perto o bastante da primeira tela para o navegador baixá-las logo.
+  depoisDoLoad(() => {
+    const calmo = window.matchMedia('(prefers-reduced-motion: reduce)');
+    montar(raiz, calmo.matches);
+    calmo.addEventListener('change', (e) => montar(raiz, e.matches));
+  });
   pausaNoToque(raiz);
+}
+
+// Roda fn depois do load da página (na hora, se o load já passou)
+function depoisDoLoad(fn) {
+  if (document.readyState === 'complete') fn();
+  else window.addEventListener('load', fn, { once: true });
 }
 
 function moldura(item) {
