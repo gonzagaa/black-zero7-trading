@@ -2,11 +2,12 @@
 //
 // A página não fala com a RD: manda o lead para a função /api/lead (Vercel), que guarda a chave e registra a conversão.
 
-import { RD } from './config.js?v=202611161651';
-import { lerUtms } from './utm.js?v=202611161651';
+import { RD } from './config.js?v=202611181111';
+import { lerUtms } from './utm.js?v=202611181111';
 
 const esperar = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const UTMS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+const CAMPOS_META = ['event_id', 'fbp', 'fbc', 'external_id']; // opcionais; a função ignora o que for inválido
 
 // AbortSignal.timeout não existe em navegadores mais antigos (Safari < 16): lá o tempo-limite vem do AbortController
 function sinalComTempo(ms) {
@@ -17,16 +18,18 @@ function sinalComTempo(ms) {
   return controle.signal;
 }
 
-function montarCorpo({ nome, email, telefone }) {
+function montarCorpo({ nome, email, telefone, meta }) {
   const utm = lerUtms();
   const corpo = { nome, email, telefone };
   for (const campo of UTMS) if (typeof utm[campo] === 'string' && utm[campo]) corpo[campo] = utm[campo];
+  // Meta (docs/meta.md): event_id, fbp, fbc e external_id vão junto para a /api/lead
+  if (meta) for (const campo of CAMPOS_META) if (typeof meta[campo] === 'string' && meta[campo]) corpo[campo] = meta[campo];
   return corpo;
 }
 
 /**
  * Envia o lead. Resolve só quando a função respondeu 200 { success: true }; rejeita em qualquer outro caso.
- * @param {{ nome: string, email: string, telefone: string }} lead
+ * @param {{ nome: string, email: string, telefone: string, meta?: object }} lead
  * @returns {Promise<void>}
  */
 export async function enviarLead(lead) {

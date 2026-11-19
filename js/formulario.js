@@ -1,9 +1,10 @@
 // Formulário da hero: validação, estados, honeypot, envio e redirecionamento.
 // Regra principal (docs/rdstation.md): só vai para o obrigado depois do sucesso do envio.
 
-import { PAGINA_OBRIGADO } from './config.js?v=202611161651';
-import { enviarLead } from './rdstation.js?v=202611161651';
-import { guardarUtms } from './utm.js?v=202611161651';
+import { PAGINA_OBRIGADO } from './config.js?v=202611181111';
+import { enviarLead } from './rdstation.js?v=202611181111';
+import { guardarUtms } from './utm.js?v=202611181111';
+import { dadosMeta } from './meta.js?v=202611181111';
 
 // Textos da tabela "Textos que a copy não traz" (docs/copy.md)
 const MSG = {
@@ -103,11 +104,15 @@ function iniciar(form) {
       return;
     }
 
+    // Meta: um event_id novo por tentativa, mais _fbp/_fbc/external_id (nada disso é dado pessoal)
+    const meta = dadosMeta();
+
     try {
       await enviarLead({
         nome: campos.nome.value.trim(),
         email: campos.email.value.trim(),
         telefone: campos.telefone.value.trim(),
+        meta,
       });
     } catch (erro) {
       // Sem dado pessoal: só a mensagem técnica do módulo da RD
@@ -115,6 +120,11 @@ function iniciar(form) {
       estadoEnviando(false);
       erroEnvio.textContent = MSG.envio;
       return;
+    }
+
+    // Meta: o obrigado dispara o CompleteRegistration com o mesmo event_id (docs/meta.md). Só o id e a marca do sucesso.
+    if (meta.event_id) {
+      try { sessionStorage.setItem('z7_meta_cr', JSON.stringify({ event_id: meta.event_id, cadastro: true })); } catch (_) { /* segue sem */ }
     }
 
     // Medição (GTM): só o nome do evento, sem dado pessoal. O GTM chama eventCallback quando as tags do evento
