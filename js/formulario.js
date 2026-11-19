@@ -1,10 +1,11 @@
 // Formulário da hero: validação, estados, honeypot, envio e redirecionamento.
 // Regra principal (docs/rdstation.md): só vai para o obrigado depois do sucesso do envio.
 
-import { PAGINA_OBRIGADO } from './config.js?v=202611191535';
-import { enviarLead } from './rdstation.js?v=202611191535';
-import { guardarUtms } from './utm.js?v=202611191535';
-import { dadosMeta } from './meta.js?v=202611191535';
+import { PAGINA_OBRIGADO } from './config.js?v=202611191653';
+import { enviarLead } from './rdstation.js?v=202611191653';
+import { guardarUtms } from './utm.js?v=202611191653';
+import { dadosMeta } from './meta.js?v=202611191653';
+import { ligarMascaraTelefone, telefoneValido, telefoneVazio, telefoneE164 } from './telefone.js?v=202611191653';
 
 // Textos da tabela "Textos que a copy não traz" (docs/copy.md)
 const MSG = {
@@ -17,13 +18,7 @@ const MSG = {
 
 const RE_EMAIL = /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)*\.[^\s@.]{2,}$/;
 
-// Telefone: igual à função /api/lead — tira tudo que não é dígito e aceita de 10 a 15 dígitos
-// ("62.99999.0000" vale; o "+" do começo vale e a função o mantém). Com letra, é inválido. Sem máscara.
-function telefoneValido(valor) {
-  if (/\p{L}/u.test(valor)) return false;
-  const digitos = valor.replace(/\D/g, '').length;
-  return digitos >= 10 && digitos <= 15;
-}
+// Telefone: máscara, DDI, validação e E.164 em js/telefone.js
 
 guardarUtms();
 
@@ -47,7 +42,7 @@ function iniciar(form) {
     const input = campos[nomeCampo];
     const valor = input.value.trim();
     let erro = '';
-    if (!valor) erro = MSG.vazio;
+    if (nomeCampo === 'telefone' ? telefoneVazio(valor) : !valor) erro = MSG.vazio;
     else if (nomeCampo === 'email' && !RE_EMAIL.test(valor)) erro = MSG.email;
     else if (nomeCampo === 'telefone' && !telefoneValido(valor)) erro = MSG.telefone;
     mostrarErro(input, erro);
@@ -60,6 +55,9 @@ function iniciar(form) {
     if (texto) input.setAttribute('aria-invalid', 'true');
     else input.removeAttribute('aria-invalid');
   }
+
+  // Máscara do telefone antes dos ouvintes abaixo: eles já leem o valor formatado
+  ligarMascaraTelefone(campos.telefone);
 
   // Valida ao sair do campo (só depois de digitar algo) e limpa o erro assim que o valor fica válido
   for (const [nomeCampo, input] of Object.entries(campos)) {
@@ -111,7 +109,7 @@ function iniciar(form) {
       await enviarLead({
         nome: campos.nome.value.trim(),
         email: campos.email.value.trim(),
-        telefone: campos.telefone.value.trim(),
+        telefone: telefoneE164(campos.telefone.value), // E.164 ("+5562995160427"); o campo continua mascarado
         meta,
       });
     } catch (erro) {
