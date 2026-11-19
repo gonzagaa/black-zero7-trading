@@ -62,6 +62,9 @@
   /* escala das molduras: 1 no desktop (292 × 372 e 340 × 300, como no protótipo) */
   --esc: .62;
   --gap: 1.6rem;
+  /* altura das molduras = altura de cada fileira (border-box): retrato em cima, paisagem embaixo */
+  --alt-esq: calc(37.2rem * var(--esc));
+  --alt-dir: calc(30rem * var(--esc));
 
   position: relative;
   z-index: 3;
@@ -69,6 +72,12 @@
   gap: var(--gap);
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
           mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+
+/* js/comprovantes.js só monta a esteira depois do load. Até lá, a esteira vazia já ocupa a altura das duas fileiras,
+   para a dobra não crescer quando as molduras entram (CLS). Montada, :empty deixa de valer e manda o conteúdo. */
+.esteira:empty {
+  min-height: calc(var(--alt-esq) + var(--gap) + var(--alt-dir));
 }
 
 .esteira__fileira {
@@ -90,7 +99,7 @@
 /* moldura: borda de 2 px em degradê branco → verde, corte diagonal */
 .moldura {
   flex: none;
-  height: calc(37.2rem * var(--esc));
+  height: var(--alt-esq);
   padding: 2px;
   border-radius: 2.6rem 0 2.6rem 0;
   background: linear-gradient(160deg, rgba(255, 255, 255, .28), rgba(255, 255, 255, .06) 40%, rgba(52, 211, 153, .35) 100%);
@@ -98,7 +107,7 @@
 }
 
 .esteira__fileira--dir .moldura {
-  height: calc(30rem * var(--esc));
+  height: var(--alt-dir);
 }
 
 .moldura__dentro {
@@ -164,8 +173,24 @@
 /* Reduced motion: uma fileira parada, com rolagem horizontal e scroll-snap */
 @media (prefers-reduced-motion: reduce) {
   .esteira {
+    --folga-rolagem: 1.2rem;
     -webkit-mask-image: none;
             mask-image: none;
+  }
+
+  /* reserva antes da montagem: uma fileira só (a de cima) mais a folga da rolagem. A fileira real tem rolagem
+     horizontal, e a barra (onde ela ocupa espaço, como no Windows) soma à altura; por isso a reserva é uma caixa
+     invisível que também rola, e ganha do navegador a mesma barra. */
+  .esteira:empty {
+    min-height: 0;
+  }
+
+  .esteira:empty::before {
+    content: '';
+    display: block;
+    overflow-x: scroll;
+    padding-block: var(--alt-esq) var(--folga-rolagem);
+    visibility: hidden;
   }
 
   .esteira__fileira {
@@ -173,7 +198,7 @@
     scroll-snap-type: x mandatory;
     scroll-padding-inline: 2rem;
     padding-inline: 2rem;
-    padding-bottom: 1.2rem;
+    padding-bottom: var(--folga-rolagem);
     overscroll-behavior-x: contain;
   }
 

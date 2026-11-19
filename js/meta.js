@@ -1,12 +1,13 @@
 // Meta (Pixel + API de Conversões). Ver docs/meta.md.
 //
 // Ao carregar o módulo (LP e obrigado): garante os cookies _fbp/_fbc e o external_id anônimo, com a mesma lógica do
-// js/metaPixel.js do site. Com META.pageview, depois do load da página (para o Pixel não disputar banda com a hero e
-// o LCP), carrega o Pixel e manda o PageView pelo navegador e pela /api/capi (o mesmo event_id nos dois).
+// js/metaPixel.js do site. Com META.pageview, depois do load da página e de o navegador ficar ocioso (para o Pixel não
+// disputar banda nem a primeira pintura com a hero e o LCP), carrega o Pixel e manda o PageView pelo navegador e pela
+// /api/capi (o mesmo event_id nos dois).
 // Exporta dadosMeta() para o envio do formulário e iniciarPixel() para o obrigado, que o chama na hora.
 // Nada aqui pode quebrar a página: tudo em try/catch e falha silenciosa.
 
-import { META } from './config.js?v=202611191511';
+import { META } from './config.js?v=202611191535';
 
 const COOKIE_MAX_AGE = 90 * 24 * 60 * 60; // 90 dias, em segundos
 const LS_EXT_ID = 'zero7_ext_id';         // a mesma chave do site
@@ -136,6 +137,15 @@ function depoisDoLoad(fn) {
   else window.addEventListener('load', fn, { once: true });
 }
 
+// Depois do load, espera o navegador ficar ocioso: no máximo 2 s com requestIdleCallback; onde ele não existe
+// (Safari), 1,5 s. Nos dois casos fn roda sempre, uma vez.
+function depoisDoLoadOcioso(fn) {
+  depoisDoLoad(() => {
+    if (typeof window.requestIdleCallback === 'function') window.requestIdleCallback(() => fn(), { timeout: 2000 });
+    else setTimeout(fn, 1500);
+  });
+}
+
 function pageView() {
   try {
     // ordem do site: cookies primeiro (já feitos acima), depois o Pixel (que reaproveita o _fbp), depois init/track.
@@ -155,7 +165,7 @@ function pageView() {
   } catch (_) { /* nada */ }
 }
 
-if (META.pageview) depoisDoLoad(pageView);
+if (META.pageview) depoisDoLoadOcioso(pageView);
 
 // Para o envio do formulário: um event_id novo por tentativa e os identificadores do navegador.
 // Nunca lança: sem dados, devolve {} e o lead segue sem Meta.
