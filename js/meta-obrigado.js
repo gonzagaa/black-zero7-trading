@@ -3,7 +3,7 @@
 // Só dispara se a LP gravou z7_meta_cr no sucesso do envio. A chave é apagada na leitura: recarregar o obrigado
 // ou abri-lo direto não dispara nada. O meta.js (importado aqui) cuida dos cookies e do PageView.
 
-import { iniciarPixel } from './meta.js?v=202611250840';
+import { iniciarPixel } from './meta.js?v=202611250900';
 
 const CHAVE = 'z7_meta_cr';
 

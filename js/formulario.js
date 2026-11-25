@@ -1,22 +1,11 @@
 // Formulário da hero: validação, estados, honeypot, envio e redirecionamento.
 // Regra principal (docs/rdstation.md): só vai para o obrigado depois do sucesso do envio.
 
-import { PAGINA_OBRIGADO } from './config.js?v=202611250840';
-import { enviarLead } from './rdstation.js?v=202611250840';
-import { guardarUtms } from './utm.js?v=202611250840';
-import { dadosMeta } from './meta.js?v=202611250840';
-import { ligarMascaraTelefone, telefoneValido, telefoneVazio, telefoneE164 } from './telefone.js?v=202611250840';
-
-// Diagnóstico temporário (25/11): ?diag=1 ou ?diag=2 liga o diagnóstico neste navegador (fica ligado nas próximas
-// visitas, inclusive as que vêm de anúncio); ?diag=0 desliga. Sem isso, nada é baixado. Ver js/diag.js.
-try {
-  const pedido = location.search.match(/[?&]diag=([012])\b/);
-  if (pedido) {
-    if (pedido[1] === '0') localStorage.removeItem('z7_diag');
-    else localStorage.setItem('z7_diag', pedido[1]);
-  }
-  if (localStorage.getItem('z7_diag')) import('./diag.js?v=202611250840').catch(() => {});
-} catch (_) { /* sem localStorage: sem diagnóstico */ }
+import { PAGINA_OBRIGADO } from './config.js?v=202611250900';
+import { enviarLead } from './rdstation.js?v=202611250900';
+import { guardarUtms } from './utm.js?v=202611250900';
+import { dadosMeta } from './meta.js?v=202611250900';
+import { ligarMascaraTelefone, telefoneValido, telefoneVazio, telefoneE164 } from './telefone.js?v=202611250900';
 
 // Textos da tabela "Textos que a copy não traz" (docs/copy.md)
 const MSG = {
