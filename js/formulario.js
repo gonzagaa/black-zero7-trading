@@ -1,11 +1,14 @@
 // Formulário da hero: validação, estados, honeypot, envio e redirecionamento.
 // Regra principal (docs/rdstation.md): só vai para o obrigado depois do sucesso do envio.
 
-import { PAGINA_OBRIGADO } from './config.js?v=202611191653';
-import { enviarLead } from './rdstation.js?v=202611191653';
-import { guardarUtms } from './utm.js?v=202611191653';
-import { dadosMeta } from './meta.js?v=202611191653';
-import { ligarMascaraTelefone, telefoneValido, telefoneVazio, telefoneE164 } from './telefone.js?v=202611191653';
+import { PAGINA_OBRIGADO } from './config.js?v=202611250810';
+import { enviarLead } from './rdstation.js?v=202611250810';
+import { guardarUtms } from './utm.js?v=202611250810';
+import { dadosMeta } from './meta.js?v=202611250810';
+import { ligarMascaraTelefone, telefoneValido, telefoneVazio, telefoneE164 } from './telefone.js?v=202611250810';
+
+// Diagnóstico temporário (25/11): só com ?diag=1 ou ?diag=2 na URL. Ver js/diag.js.
+if (/[?&]diag=[12]\b/.test(location.search)) import('./diag.js?v=202611250810').catch(() => {});
 
 // Textos da tabela "Textos que a copy não traz" (docs/copy.md)
 const MSG = {
