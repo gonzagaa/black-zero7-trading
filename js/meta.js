@@ -7,7 +7,7 @@
 // Exporta dadosMeta() para o envio do formulário e iniciarPixel() para o obrigado, que o chama na hora.
 // Nada aqui pode quebrar a página: tudo em try/catch e falha silenciosa.
 
-import { META } from './config.js?v=202611250830';
+import { META } from './config.js?v=202611250840';
 
 const COOKIE_MAX_AGE = 90 * 24 * 60 * 60; // 90 dias, em segundos
 const LS_EXT_ID = 'zero7_ext_id';         // a mesma chave do site

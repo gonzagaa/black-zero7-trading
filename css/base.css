@@ -119,7 +119,11 @@ a {
 .cena {
   position: relative;
   isolation: isolate;
+  /* "clip" corta igual ao "hidden", mas não transforma a dobra numa caixa rolável. Com "hidden", a rolagem automática
+     até o formulário (o navegador do Instagram faz isso ao abrir pelo anúncio) rolava a hero por dentro e o topo
+     ficava cortado, sem jeito de voltar (25/11/2026). "hidden" fica só para navegador sem "clip" (iOS < 16). */
   overflow: hidden;
+  overflow: clip;
   background: var(--bg-black);
 
   /* posições que mudam no celular (o cartão fica embaixo do texto) */
@@ -140,7 +144,7 @@ a {
 
 .l07 {
   z-index: 0;
-  background: url('../assets/fundo/bg-black.avif?v=202611250830') center / cover no-repeat;
+  background: url('../assets/fundo/bg-black.avif?v=202611250840') center / cover no-repeat;
   filter: brightness(1.45) contrast(1.1);
 }
 

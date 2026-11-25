@@ -1,11 +1,11 @@
 // Formulário da hero: validação, estados, honeypot, envio e redirecionamento.
 // Regra principal (docs/rdstation.md): só vai para o obrigado depois do sucesso do envio.
 
-import { PAGINA_OBRIGADO } from './config.js?v=202611250830';
-import { enviarLead } from './rdstation.js?v=202611250830';
-import { guardarUtms } from './utm.js?v=202611250830';
-import { dadosMeta } from './meta.js?v=202611250830';
-import { ligarMascaraTelefone, telefoneValido, telefoneVazio, telefoneE164 } from './telefone.js?v=202611250830';
+import { PAGINA_OBRIGADO } from './config.js?v=202611250840';
+import { enviarLead } from './rdstation.js?v=202611250840';
+import { guardarUtms } from './utm.js?v=202611250840';
+import { dadosMeta } from './meta.js?v=202611250840';
+import { ligarMascaraTelefone, telefoneValido, telefoneVazio, telefoneE164 } from './telefone.js?v=202611250840';
 
 // Diagnóstico temporário (25/11): ?diag=1 ou ?diag=2 liga o diagnóstico neste navegador (fica ligado nas próximas
 // visitas, inclusive as que vêm de anúncio); ?diag=0 desliga. Sem isso, nada é baixado. Ver js/diag.js.
@@ -15,7 +15,7 @@ try {
     if (pedido[1] === '0') localStorage.removeItem('z7_diag');
     else localStorage.setItem('z7_diag', pedido[1]);
   }
-  if (localStorage.getItem('z7_diag')) import('./diag.js?v=202611250830').catch(() => {});
+  if (localStorage.getItem('z7_diag')) import('./diag.js?v=202611250840').catch(() => {});
 } catch (_) { /* sem localStorage: sem diagnóstico */ }
 
 // Textos da tabela "Textos que a copy não traz" (docs/copy.md)
@@ -32,6 +32,16 @@ const RE_EMAIL = /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)*\.[^\s@.]{2,}$/;
 // Telefone: máscara, DDI, validação e E.164 em js/telefone.js
 
 guardarUtms();
+
+// Navegador sem overflow: clip (iOS < 16): a hero ainda é uma caixa rolável, e a rolagem automática até o formulário
+// pode deslocá-la por dentro (topo cortado, sem volta). Se ela rolar, volta para o lugar. Ver .cena em css/base.css.
+if (!(window.CSS && CSS.supports && CSS.supports('overflow', 'clip'))) {
+  for (const cena of document.querySelectorAll('.cena')) {
+    cena.addEventListener('scroll', () => {
+      if (cena.scrollTop || cena.scrollLeft) { cena.scrollTop = 0; cena.scrollLeft = 0; }
+    }, { passive: true });
+  }
+}
 
 const form = document.getElementById('form-lead');
 if (form) iniciar(form);
