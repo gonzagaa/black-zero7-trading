@@ -1,9 +1,10 @@
-// Diagnóstico temporário (25/11/2026): só carrega com ?diag=1 (ou ?diag=2) na URL. Não muda nada para quem não usa o parâmetro.
-// Mostra, numa caixa fixa embaixo da tela, as medidas que explicam a página "cortada em cima" no navegador do
-// Instagram no iPhone. Nada sai da página: só aparece na tela, para print.
+// Diagnóstico temporário (25/11/2026): página "cortada em cima" no navegador do Instagram no iPhone.
+// Liga com ?diag=1 (ou ?diag=2, que também liga o viewport-fit=cover) e fica ligado neste navegador nas próximas
+// visitas, inclusive as que vêm de anúncio; ?diag=0 desliga (ver js/formulario.js). Nada sai da página: as medidas só
+// aparecem numa caixa fixa embaixo da tela, para print.
 
-// ?diag=2: liga também o viewport-fit=cover, para ver se o navegador informa a área coberta pela barra
-if (/[?&]diag=2\b/.test(location.search)) {
+const modo = (() => { try { return localStorage.getItem('z7_diag'); } catch (_) { return null; } })();
+if (modo === '2') {
   const vp = document.querySelector('meta[name=viewport]');
   if (vp && !/viewport-fit/.test(vp.content)) vp.content += ', viewport-fit=cover';
 }
@@ -21,9 +22,17 @@ const prova = document.createElement('div');
 prova.style.cssText = 'position:fixed;top:0;left:0;width:0;height:0;visibility:hidden;' +
   'padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)';
 
-const inicio = performance.now();
-const historico = [];
+const t = () => Math.round(performance.now()); // ms desde o início da navegação
+const visInicial = document.visibilityState;
+const nav = (performance.getEntriesByType('navigation')[0] || {}).type || '-';
+const veioDeAnuncio = /[?&](utm_|fbclid=)/.test(location.search) ? 'sim' : 'não';
+const eventos = [`${t()}ms: carregou ${visInicial}`];
 let ultimo = '';
+
+function anotar(texto) {
+  eventos.push(`${t()}ms: ${texto}`);
+  if (eventos.length > 8) eventos.shift();
+}
 
 function medir() {
   const vv = window.visualViewport;
@@ -32,21 +41,28 @@ function medir() {
   const topo = document.querySelector('.topo');
   const r = (el) => (el ? Math.round(el.getBoundingClientRect().top) : '-');
   const ua = navigator.userAgent;
-  const linhas = [
-    `t=${Math.round(performance.now() - inicio)}ms  ${/Instagram/.test(ua) ? 'INSTAGRAM' : /FBAN|FBAV/.test(ua) ? 'FACEBOOK' : 'outro'}  ${(ua.match(/OS (\d+[_\d]*)/) || [])[1] || ''}`,
+  const chave = `${innerHeight}|${vv ? Math.round(vv.height) : ''}|${vv ? Math.round(vv.offsetTop) : ''}|${cs.paddingTop}|${Math.round(scrollY)}`;
+  if (chave !== ultimo) {
+    anotar(`innerH ${innerHeight} vvH ${vv ? Math.round(vv.height) : '-'} vvTop ${vv ? Math.round(vv.offsetTop) : '-'} scrollY ${Math.round(scrollY)} safeT ${cs.paddingTop}`);
+    ultimo = chave;
+  }
+  caixa.textContent = [
+    `t=${t()}ms ${/Instagram/.test(ua) ? 'INSTAGRAM' : /FBAN|FBAV/.test(ua) ? 'FACEBOOK' : 'outro'} ${(ua.match(/OS (\d+[_\d]*)/) || [])[1] || ''} diag=${modo}`,
+    `anúncio ${veioDeAnuncio}  nav ${nav}  abriu ${visInicial}  agora ${document.visibilityState}`,
     `inner ${innerWidth}x${innerHeight}  screen ${screen.width}x${screen.height}  outerH ${outerHeight}`,
     `docEl.clientH ${document.documentElement.clientHeight}  scrollY ${Math.round(scrollY)}`,
     vv ? `vv ${Math.round(vv.width)}x${Math.round(vv.height)} offTop ${Math.round(vv.offsetTop)} pageTop ${Math.round(vv.pageTop)} scale ${vv.scale.toFixed(2)}` : 'vv -',
-    `safe T${cs.paddingTop} B${cs.paddingBottom}`,
-    `topo(logo).top ${r(topo)}  h1.top ${r(h1)}`,
-  ];
-  const chave = `${innerHeight}|${vv ? Math.round(vv.height) : ''}|${cs.paddingTop}`;
-  if (chave !== ultimo) {
-    historico.push(`${Math.round(performance.now() - inicio)}ms: innerH ${innerHeight} vvH ${vv ? Math.round(vv.height) : '-'} safeT ${cs.paddingTop}`);
-    if (historico.length > 6) historico.shift();
-    ultimo = chave;
-  }
-  caixa.textContent = linhas.join('\n') + '\nmudanças:\n' + historico.join('\n');
+    `safe T${cs.paddingTop} B${cs.paddingBottom}   topo(logo).top ${r(topo)}  h1.top ${r(h1)}`,
+    'linha do tempo:',
+    ...eventos,
+  ].join('\n');
+}
+
+let timer = null;
+function medirPorUmTempo() {
+  clearInterval(timer);
+  timer = setInterval(medir, 250);
+  setTimeout(() => clearInterval(timer), 6000);
 }
 
 function ligar() {
@@ -59,9 +75,14 @@ function ligar() {
     visualViewport.addEventListener('resize', medir);
     visualViewport.addEventListener('scroll', medir);
   }
-  // primeiros 6 s: mede a cada 250 ms (o Instagram pode ajustar a tela depois de abrir)
-  const timer = setInterval(medir, 250);
-  setTimeout(() => clearInterval(timer), 6000);
+  document.addEventListener('visibilitychange', () => {
+    anotar(`ficou ${document.visibilityState} (innerH ${innerHeight})`);
+    medir();
+    if (document.visibilityState === 'visible') medirPorUmTempo();
+  });
+  addEventListener('pageshow', (e) => { anotar(`pageshow${e.persisted ? ' (cache)' : ''}`); medir(); });
+  // primeiros 6 s, e de novo nos 6 s depois de a página aparecer: mede a cada 250 ms
+  medirPorUmTempo();
 }
 
 if (document.body) ligar();
